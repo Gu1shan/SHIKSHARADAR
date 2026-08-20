@@ -1,0 +1,21 @@
+{
+  "responses": {
+    "columns": {
+      "response_id": "string",
+      "student_id": "string",
+      "assessment_id": "string",
+      "question_id": "string",
+      "student_answer": "string",
+      "is_correct": "boolean",
+      "error_type": "string",
+      "created_at": "string"
+    }
+  },
+  "students": {
+    "columns": {
+      "student_id": "string",
+      "grade": "integer",
+      "section": "string"
+    }
+  }
+}

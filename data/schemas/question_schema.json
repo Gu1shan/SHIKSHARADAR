@@ -1,0 +1,19 @@
+{
+  "questions": {
+    "columns": {
+      "question_id": "string",
+      "text": "string",
+      "concept": "string",
+      "sub_concept": "string",
+      "difficulty": "integer",
+      "expected_answer": "string"
+    }
+  },
+  "concept_map": {
+    "columns": {
+      "question_id": "string",
+      "concept": "string",
+      "sub_concept": "string"
+    }
+  }
+}
