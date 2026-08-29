@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — Testing, Deployment &amp; Scale</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+  <span class="t-title" id="tTitle">Testing, Deployment &amp; Scale</span>
+</div>
+<div class="sidebar-backdrop" id="backdrop"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="logo">Shiksha Radar</div>
+    <div class="tagline">Find the learning gap before it becomes a learning failure.</div>
+  </div>
+  <nav>
+    <div class="nav-group">Overview</div>
+    <a href="index.html"><span class="dot"></span>Project Guide</a>
+    <div class="nav-group">Research &amp; Design</div>
+    <a href="problem.html"><span class="dot"></span>Problem &amp; Research</a>
+    <a href="innovation.html"><span class="dot"></span>Innovation &amp; Product</a>
+    <a href="architecture.html"><span class="dot"></span>Architecture &amp; Stack</a>
+    <a href="ai.html"><span class="dot"></span>AI &amp; Trust</a>
+    <div class="nav-group">Core Systems</div>
+    <a href="algorithms.html"><span class="dot"></span>Algorithms &amp; Dashboard</a>
+    <a href="data.html"><span class="dot"></span>Data, Privacy &amp; RAI</a>
+    <a href="testing.html"><span class="dot"></span>Testing, Deployment &amp; Scale</a>
+    <div class="nav-group">Delivery</div>
+    <a href="sih.html"><span class="dot"></span>SIH Evaluation &amp; Demo</a>
+    <a href="roadmap.html"><span class="dot"></span>Roadmap &amp; Execution</a>
+    <a href="sources.html"><span class="dot"></span>Sources &amp; References</a>
+  </nav>
+  <div class="foot">Smart India Hackathon · Prepared August 2026</div>
+</aside>
+
+<main class="main">
+  <div class="kicker">Part 07 · Quality &amp; Scale</div>
+  <h1>Prove the system works — not just that it runs</h1>
+  <p class="lead">A learning-gap detector must be measured against ground truth. We define the testing bar before writing the first feature.</p>
+
+  <h2>Testing strategy</h2>
+  <table>
+    <tr><th>Layer</th><th>What is tested</th><th>Tool</th></tr>
+    <tr><td>Unit</td><td>normalizer, classifier, confidence math</td><td>pytest</td></tr>
+    <tr><td>Golden set</td><td>20 hand-labeled Q/A pairs → exact classification match</td><td>pytest fixtures</td></tr>
+    <tr><td>Integration</td><td>CSV → pipeline → DB → dashboard</td><td>pytest + Streamlit test client</td></tr>
+    <tr><td><strong>AI evaluation</strong></td><td>Ground-truth metrics (TP/FP/FN, precision, recall, F1) on synthetic data</td><td>pytest + metrics script</td></tr>
+    <tr><td>LLM</td><td>Schema conformance, hallucination check ("no inventing"), consistency on re-runs</td><td>pytest + prompt harness</td></tr>
+    <tr><td>System/E2E</td><td>Demo script end-to-end, all four screens</td><td>manual + recorded demo</td></tr>
+  </table>
+  <div class="callout ok"><strong>Target bar:</strong> recall ≥ 0.85 and precision ≥ 0.80 on planted-error synthetic data before SIH; every metric displayed with the numbers, not adjectives.</div>
+
+  <h2>Tested edge cases — because the demo will hit them</h2>
+  <div class="grid g2">
+    <div class="card reveal">
+      <h4>Data edge cases</h4>
+      <ul>
+        <li>Duplicate student IDs</li>
+        <li>Empty / all-correct / all-wrong answer files</li>
+        <li>Question ID not in bank</li>
+        <li>Non-standard answer strings</li>
+        <li>Concept mismatch (embedding low confidence)</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h4>Behavior edge cases</h4>
+      <ul>
+        <li>Single assessment (fewer than 2 → "initial indication")</li>
+        <li>Errors below threshold → shown but not flagged</li>
+        <li>LLM down / offline → rule-based flow still works</li>
+        <li>Teacher approves then rejects intervention → clean states</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout warn"><strong>Honesty rule:</strong> every edge case has a defined output; "insufficient data" is a first-class result, never a crash or a guess.</div>
+
+  <h2>From $0 MVP to district scale — deliberately</h2>
+  <table>
+    <tr><th>Stage</th><th>Platform</th><th>Est. cost</th><th>Enables</th></tr>
+    <tr><td>MVP</td><td>Streamlit Cloud (free)</td><td>$0</td><td>Public demo, feedback</td></tr>
+    <tr><td>SIH prototype</td><td>Streamlit Cloud + SQLite + Groq/Gemini free tier</td><td>~$0</td><td>Full loop demo</td></tr>
+    <tr><td>Pilot school</td><td>Cloud Run + PostgreSQL</td><td>~$25/mo</td><td>Real usage, auth</td></tr>
+    <tr><td>District (50 schools)</td><td>+ PostgreSQL managed, CDN</td><td>~$150/mo</td><td>Reliability, support</td></tr>
+    <tr><td>Multi-district / state</td><td>+ K8s, Redis, monitoring</td><td>~$700+/mo</td><td>High availability</td></tr>
+  </table>
+  <div class="callout"><strong>Verdict:</strong> the production stack (FastAPI, PostgreSQL, React PWA, Docker) is a <em>post-SIH</em> investment. The prototype wins on a working loop, not on infrastructure.</div>
+
+  <h2>50 → 50K students: where scaling actually bites</h2>
+  <div class="grid g2">
+    <div class="card reveal">
+      <h4>What scales cheaply</h4>
+      <ul>
+        <li>Rule-based detection — pure compute, cacheable</li>
+        <li>Embedding concept mapping — batchable, model is tiny</li>
+        <li>SQLite → PostgreSQL — schema already normal-form</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h4>What needs care</h4>
+      <ul>
+        <li>LLM calls — batch/queue, cache identical prompts</li>
+        <li>Heatmap rendering — pre-aggregate, don't compute live</li>
+        <li>Offline sync conflicts — last-write-wins + audit log</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout ok"><strong>Offline-first (post-SIH):</strong> Service Worker caches app + quantized model (~20 MB) + question bank; IndexedDB holds local data; Background Sync flushes uploads and LLM jobs when online. Multilingual via i18n JSON + per-question translations + model-supported languages only.</div>
+
+  <h2>Observability &amp; maintenance plan</h2>
+  <table>
+    <tr><th>Concern</th><th>Tool / practice</th></tr>
+    <tr><td>App errors</td><td>Sentry (free tier) with PII-scrubbed events</td></tr>
+    <tr><td>API health</td><td>UptimeRobot ping per endpoint</td></tr>
+    <tr><td>LLM cost &amp; failures</td><td>Request log, retry budget, offline fallback path</td></tr>
+    <tr><td>Model drift</td><td>Re-run golden set weekly; alert on precision drop &gt; 5%</td></tr>
+    <tr><td>Backups</td><td>Daily DB dumps to object storage; retention 90 days</td></tr>
+    <tr><td>Data audit</td><td>Exportable audit log (who saw what, when) for school admins</td></tr>
+  </table>
+  <div class="callout"><strong>SIH-relevant point:</strong> demonstrating a monitoring + rollback plan shows production thinking judges reward — without adding complexity to the prototype itself.</div>
+</main>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

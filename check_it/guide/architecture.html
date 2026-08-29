@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — Architecture &amp; Stack</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+  <span class="t-title" id="tTitle">Architecture &amp; Stack</span>
+</div>
+<div class="sidebar-backdrop" id="backdrop"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="logo">Shiksha Radar</div>
+    <div class="tagline">Find the learning gap before it becomes a learning failure.</div>
+  </div>
+  <nav>
+    <div class="nav-group">Overview</div>
+    <a href="index.html"><span class="dot"></span>Project Guide</a>
+    <div class="nav-group">Research &amp; Design</div>
+    <a href="problem.html"><span class="dot"></span>Problem &amp; Research</a>
+    <a href="innovation.html"><span class="dot"></span>Innovation &amp; Product</a>
+    <a href="architecture.html"><span class="dot"></span>Architecture &amp; Stack</a>
+    <a href="ai.html"><span class="dot"></span>AI &amp; Trust</a>
+    <div class="nav-group">Core Systems</div>
+    <a href="algorithms.html"><span class="dot"></span>Algorithms &amp; Dashboard</a>
+    <a href="data.html"><span class="dot"></span>Data, Privacy &amp; RAI</a>
+    <a href="testing.html"><span class="dot"></span>Testing, Deployment &amp; Scale</a>
+    <div class="nav-group">Delivery</div>
+    <a href="sih.html"><span class="dot"></span>SIH Evaluation &amp; Demo</a>
+    <a href="roadmap.html"><span class="dot"></span>Roadmap &amp; Execution</a>
+    <a href="sources.html"><span class="dot"></span>Sources &amp; References</a>
+  </nav>
+  <div class="foot">Smart India Hackathon · Prepared August 2026</div>
+</aside>
+
+<main class="main">
+  <div class="kicker">Part 03 · Technical Architecture</div>
+  <h1>Three levels — build in order, never skip ahead</h1>
+  <p class="lead">The project is scoped in three build levels. Each level has a reason to exist, a clear outcome, and deliberately excludes tools that don't help yet.</p>
+
+  <div class="grid g3">
+    <div class="card reveal"><h4>Level 1 — MVP <span class="badge b-green">Weeks 1–4</span></h4><p>CSV upload → Pandas → mistake detection → concept heatmaps → <strong>Streamlit dashboard</strong>.</p><p class="muted">Python + Pandas + Streamlit + Plotly + MiniLM embeddings. No database.</p></div>
+    <div class="card reveal"><h4>Level 2 — SIH Prototype <span class="badge b-blue">Weeks 5–8</span></h4><p>Adds SQLite, multi-assessment tracking, student profiles, LLM explanations, intervention engine, PDF reports.</p><p class="muted">Persistence + AI + the closed feedback loop.</p></div>
+    <div class="card reveal"><h4>Level 3 — Production <span class="badge b-purple">Post-SIH</span></h4><p>FastAPI + PostgreSQL/TimescaleDB + auth + React PWA + offline-first + monitoring.</p><p class="muted">Scalable, secure, multilingual, deployable at district/state scale.</p></div>
+  </div>
+  <pre>MVP → validate with real teachers → SIH prototype → then design production. Never build Level 3 first.</pre>
+
+  <h2>The minimum sensible stack — every tool earns its place</h2>
+  <table>
+    <tr><th>Tool</th><th>Level</th><th>Why it's needed</th><th>Minimal skill needed</th></tr>
+    <tr><td><strong>Python</strong></td><td>MVP</td><td>Language of the whole stack</td><td>Basic syntax, functions, dataclasses</td></tr>
+    <tr><td><strong>Pandas</strong></td><td>MVP</td><td>CSV loading, validation, aggregation</td><td>read/filter/groupby/apply</td></tr>
+    <tr><td><strong>Streamlit</strong></td><td>MVP</td><td>Zero-frontend-code dashboard for the demo</td><td>Layout, widgets, session_state</td></tr>
+    <tr><td><strong>Plotly</strong></td><td>MVP</td><td>Interactive heatmaps &amp; charts</td><td>Basic traces</td></tr>
+    <tr><td><strong>sentence-transformers</strong></td><td>MVP</td><td>Question→concept embeddings (MiniLM-L6-v2)</td><td>Call the model, cosine similarity</td></tr>
+    <tr><td><strong>scikit-learn</strong></td><td>MVP</td><td>Optional clustering / anomaly detection</td><td>Optional</td></tr>
+    <tr><td><strong>SQLite</strong></td><td>SIH</td><td>Multi-assessment persistence</td><td>CREATE/INSERT/SELECT + indexes</td></tr>
+    <tr><td><strong>LLM API</strong> (Groq/Gemini)</td><td>SIH</td><td>Teacher explanations, question generation, translation</td><td>Prompt template + JSON parsing</td></tr>
+    <tr><td><strong>FastAPI + PostgreSQL</strong></td><td>Production</td><td>Auth, multi-user, scale</td><td>Later — not needed for SIH</td></tr>
+  </table>
+
+  <h2>What is NOT in the stack — and why</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h4>Excluded from MVP/SIH</h4>
+      <ul>
+        <li><strong>Docker / Kubernetes</strong> — no benefit at prototype scale; adds real complexity</li>
+        <li><strong>React / Node</strong> — Streamlit delivers the demo with zero frontend code</li>
+        <li><strong>Heavy ML / deep learning</strong> — deterministic rules + statistics are more auditable and sufficient</li>
+        <li><strong>PostgreSQL</strong> — SQLite covers prototype needs; upgrade only when scaling</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Rule: every technology must have a reason</h4>
+      <p>Each tool maps to a concrete job: <em>Pandas reads data, Streamlit shows it, embeddings map concepts, LLM explains, SQLite remembers.</em> No tool is included for its name.</p>
+      <p class="muted">This keeps the project beginner-buildable and the demo honest — "actually impressive because it works."</p>
+    </div>
+  </div>
+
+  <h2>Now vs future infrastructure</h2>
+  <table>
+    <tr><th>Component</th><th>MVP</th><th>SIH Prototype</th><th>Production</th></tr>
+    <tr><td>Database</td><td>CSV</td><td>SQLite</td><td>PostgreSQL + TimescaleDB</td></tr>
+    <tr><td>Auth</td><td>None</td><td>Simple PIN</td><td>OAuth2/JWT + RBAC</td></tr>
+    <tr><td>Frontend</td><td>Streamlit</td><td>Streamlit</td><td>React PWA</td></tr>
+    <tr><td>API</td><td>None</td><td>None</td><td>FastAPI</td></tr>
+    <tr><td>LLM</td><td>Optional</td><td>Groq/Gemini API</td><td>Self-hosted + API</td></tr>
+    <tr><td>Deployment</td><td>Streamlit Cloud</td><td>Streamlit Cloud</td><td>Docker + K8s / Cloud Run</td></tr>
+    <tr><td>Offline</td><td>No</td><td>No</td><td>Service Worker + IndexedDB</td></tr>
+  </table>
+
+  <div class="callout"><strong>Deployment verdict:</strong> start on Streamlit Cloud (free). Migrate to FastAPI + Cloud Run only when you need auth, multi-user, or a mobile API.</div>
+</main>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — Roadmap &amp; Execution</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+  <span class="t-title" id="tTitle">Roadmap &amp; Execution</span>
+</div>
+<div class="sidebar-backdrop" id="backdrop"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="logo">Shiksha Radar</div>
+    <div class="tagline">Find the learning gap before it becomes a learning failure.</div>
+  </div>
+  <nav>
+    <div class="nav-group">Overview</div>
+    <a href="index.html"><span class="dot"></span>Project Guide</a>
+    <div class="nav-group">Research &amp; Design</div>
+    <a href="problem.html"><span class="dot"></span>Problem &amp; Research</a>
+    <a href="innovation.html"><span class="dot"></span>Innovation &amp; Product</a>
+    <a href="architecture.html"><span class="dot"></span>Architecture &amp; Stack</a>
+    <a href="ai.html"><span class="dot"></span>AI &amp; Trust</a>
+    <div class="nav-group">Core Systems</div>
+    <a href="algorithms.html"><span class="dot"></span>Algorithms &amp; Dashboard</a>
+    <a href="data.html"><span class="dot"></span>Data, Privacy &amp; RAI</a>
+    <a href="testing.html"><span class="dot"></span>Testing, Deployment &amp; Scale</a>
+    <div class="nav-group">Delivery</div>
+    <a href="sih.html"><span class="dot"></span>SIH Evaluation &amp; Demo</a>
+    <a href="roadmap.html"><span class="dot"></span>Roadmap &amp; Execution</a>
+    <a href="sources.html"><span class="dot"></span>Sources &amp; References</a>
+  </nav>
+  <div class="foot">Smart India Hackathon · Prepared August 2026</div>
+</aside>
+
+<main class="main">
+  <div class="kicker">Part 09 · Execution</div>
+  <h1>8–12 week roadmap — learn while building</h1>
+  <p class="lead">This roadmap assumes a first-semester CS student. Each week pairs a build milestone with a focused learning goal — you learn by shipping, not before shipping.</p>
+
+  <table>
+    <tr><th>Week</th><th>Scope</th><th>Build</th><th>Learn</th></tr>
+    <tr><td><strong>1</strong></td><td>Setup</td><td>Repo, venv, hello-world pipeline</td><td>Python, Git, venv</td></tr>
+    <tr><td><strong>2</strong></td><td>Data</td><td>Synthetic generator, CSV loader</td><td>Pandas, dataclasses</td></tr>
+    <tr><td><strong>3</strong></td><td>Rules</td><td>Error taxonomy, classifier</td><td>Functions, tests</td></tr>
+    <tr><td><strong>4</strong></td><td>MVP</td><td>Detection + Streamlit heatmap</td><td>Streamlit, Plotly</td></tr>
+    <tr><td><strong>5</strong></td><td>Persistence</td><td>SQLite schema, views, indexes</td><td>SQL, schema design</td></tr>
+    <tr><td><strong>6</strong></td><td>AI</td><td>Embeddings, confidence, LLM explanations</td><td>sentence-transformers, APIs</td></tr>
+    <tr><td><strong>7</strong></td><td>Loop</td><td>Intervention engine, PDF report, outcomes</td><td>pytest, report generation</td></tr>
+    <tr><td><strong>8</strong></td><td>Polish</td><td>Edge cases, demo script, GitHub release</td><td>Testing discipline</td></tr>
+    <tr><td><strong>9–12</strong></td><td>Iterate</td><td>Teacher feedback, UX, real-data pilot prep</td><td>Product thinking</td></tr>
+  </table>
+
+  <h2>A professional repository — taught gradually</h2>
+  <pre>shiksha-radar/
+├── README.md
+├── requirements.txt / pyproject.toml
+├── src/
+│   ├── ingestion/       # CSV loader + validation + normalizer
+│   ├── analysis/        # classifier, mapper, profile, gaps
+│   ├── ai/              # embeddings, llm, prompts
+│   ├── interventions/   # engine + reports
+│   └── dashboard/       # Streamlit app
+├── data/
+│   ├── raw/             # 4 synthetic CSVs
+│   └── generated/       # scripts
+├── tests/               # unit, golden, integration, ai_eval
+├── docs/                # architecture, privacy, demo-script
+└── .github/workflows/   # CI: lint + test on push</pre>
+  <div class="callout"><strong>Graduation path:</strong> Week 1 introduces folders; Week 4 adds tests; Week 6 adds CI. Nothing is introduced before it serves the project.</div>
+
+  <h2>First 7 days — a concrete beginner-safe plan</h2>
+  <table>
+    <tr><th>Day</th><th>Task</th><th>Commit message</th></tr>
+    <tr><td><strong>1</strong></td><td>Python 3.11+, Git, VS Code; init repo; venv; install pandas/streamlit/plotly; README</td><td><code>chore: init repo with structure</code></td></tr>
+    <tr><td><strong>2</strong></td><td>Synthetic data generator (6 archetypes); 4 CSVs; verify row counts</td><td><code>feat: synthetic data generator</code></td></tr>
+    <tr><td><strong>3</strong></td><td>CSV loader + validation + answer normalizer; test all files</td><td><code>feat: data loading &amp; validation</code></td></tr>
+    <tr><td><strong>4</strong></td><td>Error taxonomy + rule-based classifier; 20 golden tests; pytest</td><td><code>feat: rule-based error classifier</code></td></tr>
+    <tr><td><strong>5</strong></td><td>Concept mapper; profiles + gap detectors; Wilson confidence + trend</td><td><code>feat: profiling &amp; gap detection</code></td></tr>
+    <tr><td><strong>6</strong></td><td>Streamlit dashboard — Overview, Heatmap, Profile, Insights; sidebar upload</td><td><code>feat: Streamlit dashboard (4 views)</code></td></tr>
+    <tr><td><strong>7</strong></td><td>Pin requirements; docs + demo script; screen capture; push to GitHub</td><td><code>chore: docs, requirements, demo ready</code></td></tr>
+  </table>
+  <div class="callout ok"><strong>Week 1 success:</strong> working pipeline (CSV → classification → profiles → gaps) · interactive dashboard · tested, version-controlled code · ready for SQLite (Week 5) and LLM (Week 6).</div>
+
+  <h2>The procedure behind the project plan</h2>
+  <p>This guide (and the underlying plan) was produced with a repeatable method — so the team can defend how the plan was made:</p>
+  <ol>
+    <li><strong>Clarify scope:</strong> SIH learning-outcome assessment.</li>
+    <li><strong>Verify ecosystem claims</strong> from official sources only (UDISE+, DIKSHA, Saral, VSK, NDEAR, NIPUN, ASER, DPDP).</li>
+    <li><strong>Identify the gap:</strong> marks-based systems lack concept-level error-pattern intelligence.</li>
+    <li><strong>Design:</strong> mistake fingerprinting, evidence-first, confidence-scored, teacher-in-the-loop.</li>
+    <li><strong>Architect:</strong> 3 levels (MVP → SIH → production) so a beginner can build it in 8–12 weeks.</li>
+    <li><strong>De-risk:</strong> synthetic data, edge-case matrix, testing targets, honest SIH scorecard.</li>
+    <li><strong>Document everything;</strong> label verified vs assumed vs unknown.</li>
+  </ol>
+  <div class="callout warn"><strong>Epistemics rule used throughout:</strong> every claim carries a status — <em>verified</em> (official source), <em>assumed</em> (reasonable but unverified), or <em>unknown</em> (flagged, never invented). Nothing was fabricated to fill a gap.</div>
+
+  <div class="cta-row">
+    <a class="btn primary" href="sources.html">See the sources →</a>
+    <a class="btn" href="index.html">Back to overview</a>
+  </div>
+</main>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

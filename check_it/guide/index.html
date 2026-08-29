@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — Project Guide</title>
+<meta name="description" content="A complete guide to Shiksha Radar: an AI-powered learning-gap detection platform for Indian schools, built for Smart India Hackathon.">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+  <span class="t-title" id="tTitle">Shiksha Radar</span>
+</div>
+<div class="sidebar-backdrop" id="backdrop"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="logo">Shiksha Radar</div>
+    <div class="tagline">Find the learning gap before it becomes a learning failure.</div>
+  </div>
+  <nav>
+    <div class="nav-group">Overview</div>
+    <a href="index.html"><span class="dot"></span>Project Guide</a>
+    <div class="nav-group">Research &amp; Design</div>
+    <a href="problem.html"><span class="dot"></span>Problem &amp; Research</a>
+    <a href="innovation.html"><span class="dot"></span>Innovation &amp; Product</a>
+    <a href="architecture.html"><span class="dot"></span>Architecture &amp; Stack</a>
+    <a href="ai.html"><span class="dot"></span>AI &amp; Trust</a>
+    <div class="nav-group">Core Systems</div>
+    <a href="algorithms.html"><span class="dot"></span>Algorithms &amp; Dashboard</a>
+    <a href="data.html"><span class="dot"></span>Data, Privacy &amp; RAI</a>
+    <a href="testing.html"><span class="dot"></span>Testing, Deployment &amp; Scale</a>
+    <div class="nav-group">Delivery</div>
+    <a href="sih.html"><span class="dot"></span>SIH Evaluation &amp; Demo</a>
+    <a href="roadmap.html"><span class="dot"></span>Roadmap &amp; Execution</a>
+    <a href="sources.html"><span class="dot"></span>Sources &amp; References</a>
+  </nav>
+  <div class="foot">Smart India Hackathon · Prepared August 2026</div>
+</aside>
+
+<main class="main">
+  <section class="hero">
+    <div class="kicker">Project Guide · Smart India Hackathon</div>
+    <div class="logo-big">Shiksha Radar</div>
+    <p class="tagline">"Find the learning gap before it becomes a learning failure."</p>
+    <p class="lead">An AI-powered early learning-support &amp; learning-gap detection platform for Indian schools. It reads answers — not just marks — to find <strong>which concepts</strong> students struggle with, <strong>why</strong>, and <strong>what might help</strong>, with every claim backed by evidence and confidence scores.</p>
+  </section>
+
+  <div class="cta-row">
+    <a class="btn primary" href="problem.html">Start reading →</a>
+    <a class="btn" href="roadmap.html">See the build plan</a>
+    <a class="btn ghost" href="sih.html">SIH readiness</a>
+  </div>
+
+  <h2>What this guide covers</h2>
+  <p>Ten sections walk through the entire project — from the research that justifies it, to the algorithms, the data and privacy design, the testing, and finally how it is pitched and built.</p>
+
+  <div class="grid g2">
+    <div class="feature-card reveal"><div class="icon">📊</div><h3><a href="problem.html">Problem &amp; Research</a></h3><p>India's learning crisis in numbers, the education ecosystem (UDISE+, DIKSHA, Saral, VSK, NDEAR, NIPUN Bharat, ASER), and the gap Shiksha Radar fills.</p></div>
+    <div class="feature-card reveal"><div class="icon">💡</div><h3><a href="innovation.html">Innovation &amp; Product</a></h3><p>Mistake fingerprinting, what the product is and is not, the detect→intervene→reassess loop, and the user personas.</p></div>
+    <div class="feature-card reveal"><div class="icon">🏗️</div><h3><a href="architecture.html">Architecture &amp; Stack</a></h3><p>Three build levels (MVP → SIH → production), the minimum sensible stack, deliberate exclusions, and what is future infrastructure.</p></div>
+    <div class="feature-card reveal"><div class="icon">🤖</div><h3><a href="ai.html">AI &amp; Trust</a></h3><p>Where AI is used and where it is not, guarded prompt architecture, hallucination &amp; bias controls, and concept mapping.</p></div>
+    <div class="feature-card reveal"><div class="icon">🧮</div><h3><a href="algorithms.html">Algorithms &amp; Dashboard</a></h3><p>Deterministic mistake detection, confidence scoring (Wilson bounds), the intervention engine, and the 4-screen dashboard.</p></div>
+    <div class="feature-card reveal"><div class="icon">🛡️</div><h3><a href="data.html">Data, Privacy &amp; RAI</a></h3><p>Synthetic data strategy, database design, DPDP Act 2023 compliance, and child-safety safeguards.</p></div>
+    <div class="feature-card reveal"><div class="icon">🧪</div><h3><a href="testing.html">Testing, Deployment &amp; Scale</a></h3><p>How we prove it works, edge cases, the $0→district cost path, scaling, observability, offline &amp; multilingual.</p></div>
+    <div class="feature-card reveal"><div class="icon">🏆</div><h3><a href="sih.html">SIH Evaluation &amp; Demo</a></h3><p>Honest judging-criteria scorecard, risks, the 3-minute demo script, and prepared judge Q&amp;A.</p></div>
+    <div class="feature-card reveal"><div class="icon">🗺️</div><h3><a href="roadmap.html">Roadmap &amp; Execution</a></h3><p>The 8–12 week learn-while-building plan, repository structure, first-7-days plan, and the research procedure.</p></div>
+    <div class="feature-card reveal"><div class="icon">📚</div><h3><a href="sources.html">Sources &amp; References</a></h3><p>Every claim's source, with verified / assumed / unknown status flagged honestly.</p></div>
+  </div>
+
+  <h2>At a glance</h2>
+  <div class="grid g4">
+    <div class="card kpi"><div class="num">&gt;50%</div><div class="label">Grade 5 children can't read Grade 2 text (ASER 2024)</div></div>
+    <div class="card kpi"><div class="num">1B+</div><div class="label">assessments scanned by Saral — marks, not concepts</div></div>
+    <div class="card kpi"><div class="num">84%</div><div class="label">confidence example — evidence-cited gap finding</div></div>
+    <div class="card kpi"><div class="num">38</div><div class="label">slides in the master presentation deck</div></div>
+  </div>
+
+  <hr>
+  <h2>How to use this guide</h2>
+  <ul>
+    <li><strong>Read sequentially</strong> for the full picture — start at Problem &amp; Research.</li>
+    <li><strong>Jump by role</strong>: judges and evaluators → SIH Evaluation &amp; Demo; developers → Architecture, Algorithms, Roadmap; researchers → Problem &amp; Research, Sources.</li>
+    <li><strong>Every claim is labeled</strong>: <span class="tag-verified">verified</span> (official source), <span class="tag-assumed">assumed</span> (reasonable but unverified), <span class="tag-unknown">unknown</span> (flagged, never invented).</li>
+    <li><strong>This is a plan, not a prototype</strong> — the goal is a detailed, research-backed plan a first-semester CS student can build in 8–12 weeks.</li>
+  </ul>
+
+  <div class="callout ok">
+    <strong>Bottom line:</strong> every architectural choice in this project has a reason, a source, and a buildable first step. Start with the synthetic-data generator on Day 1.
+  </div>
+</main>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

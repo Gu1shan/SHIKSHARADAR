@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — 09 Roadmap &amp; Methodology</title>
+<link rel="stylesheet" href="shared/deck.css">
+</head>
+<body>
+<a class="home-link" href="index.html">← Hub</a>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <section class="slide title-slide">
+    <div class="kicker">Shiksha Radar · Presentation 09</div>
+    <div class="logo">Roadmap &amp; Methodology</div>
+    <div class="tag">"Find the learning gap before it becomes a learning failure."</div>
+    <p class="big">Learn while building — plus how this plan itself was made</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Roadmap</div>
+    <h2>8–12 week roadmap — learn while building</h2>
+    <table>
+      <tr><th>Week</th><th>Scope</th><th>Build</th><th>Learn</th></tr>
+      <tr><td><strong>1</strong></td><td>Setup</td><td>Repo, venv, hello-world pipeline</td><td>Python, Git, venv</td></tr>
+      <tr><td><strong>2</strong></td><td>Data</td><td>Synthetic generator, CSV loader</td><td>Pandas, dataclasses</td></tr>
+      <tr><td><strong>3</strong></td><td>Rules</td><td>Error taxonomy, classifier</td><td>Functions, tests</td></tr>
+      <tr><td><strong>4</strong></td><td>MVP</td><td>Detection + Streamlit heatmap</td><td>Streamlit, Plotly</td></tr>
+      <tr><td><strong>5</strong></td><td>Persistence</td><td>SQLite schema, views, indexes</td><td>SQL, schema design</td></tr>
+      <tr><td><strong>6</strong></td><td>AI</td><td>Embeddings, confidence, LLM explanations</td><td>sentence-transformers, APIs</td></tr>
+      <tr><td><strong>7</strong></td><td>Loop</td><td>Intervention engine, PDF report, outcomes</td><td>pytest, report generation</td></tr>
+      <tr><td><strong>8</strong></td><td>Polish</td><td>Edge cases, demo script, GitHub release</td><td>Testing discipline</td></tr>
+      <tr><td><strong>9–12</strong></td><td>Iterate</td><td>Teacher feedback, UX, real-data pilot prep</td><td>Product thinking</td></tr>
+    </table>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Repository</div>
+    <h2>A professional repository — taught gradually</h2>
+    <pre>shiksha-radar/
+├── README.md
+├── requirements.txt / pyproject.toml
+├── src/
+│   ├── ingestion/       # CSV loader + validation + normalizer
+│   ├── analysis/        # classifier, mapper, profile, gaps
+│   ├── ai/              # embeddings, llm, prompts
+│   ├── interventions/   # engine + reports
+│   └── dashboard/       # Streamlit app
+├── data/
+│   ├── raw/             # 4 synthetic CSVs
+│   └── generated/       # scripts
+├── tests/               # unit, golden, integration, ai_eval
+├── docs/                # architecture, privacy, demo-script
+└── .github/workflows/   # CI: lint + test on push</pre>
+    <div class="callout"><strong>Graduation path:</strong> Week 1 introduces folders; Week 4 adds tests; Week 6 adds CI. Nothing is introduced before it serves the project.</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Start Now</div>
+    <h2>First 7 days — a concrete beginner-safe plan</h2>
+    <table>
+      <tr><th>Day</th><th>Task</th><th>Commit message</th></tr>
+      <tr><td><strong>1</strong></td><td>Python 3.11+, Git, VS Code; init repo; venv; install pandas/streamlit/plotly; README</td><td><code>chore: init repo with structure</code></td></tr>
+      <tr><td><strong>2</strong></td><td>Synthetic data generator (6 archetypes); 4 CSVs; verify row counts</td><td><code>feat: synthetic data generator</code></td></tr>
+      <tr><td><strong>3</strong></td><td>CSV loader + validation + answer normalizer; test all files</td><td><code>feat: data loading &amp; validation</code></td></tr>
+      <tr><td><strong>4</strong></td><td>Error taxonomy + rule-based classifier; 20 golden tests; pytest</td><td><code>feat: rule-based error classifier</code></td></tr>
+      <tr><td><strong>5</strong></td><td>Concept mapper; profiles + gap detectors; Wilson confidence + trend</td><td><code>feat: profiling &amp; gap detection</code></td></tr>
+      <tr><td><strong>6</strong></td><td>Streamlit dashboard — Overview, Heatmap, Profile, Insights; sidebar upload</td><td><code>feat: Streamlit dashboard (4 views)</code></td></tr>
+      <tr><td><strong>7</strong></td><td>Pin requirements; docs + demo script; screen capture; push to GitHub</td><td><code>chore: docs, requirements, demo ready</code></td></tr>
+    </table>
+    <div class="callout ok"><strong>Week 1 success:</strong> working pipeline (CSV → classification → profiles → gaps) · interactive dashboard · tested, version-controlled code · ready for SQLite (Week 5) and LLM (Week 6).</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Methodology</div>
+    <h2>The procedure behind the project plan</h2>
+    <pre>1. Clarify scope: SIH learning-outcome assessment.
+2. Verify ecosystem claims from official sources only
+   (UDISE+, DIKSHA, Saral, VSK, NDEAR, NIPUN, ASER, DPDP).
+3. Identify the gap: marks-based systems lack concept-level
+   error-pattern intelligence.
+4. Design: mistake fingerprinting, evidence-first, confidence-
+   scored, teacher-in-the-loop.
+5. Architect: 3 levels (MVP → SIH → production) so a beginner
+   can build it in 8–12 weeks.
+6. De-risk: synthetic data, edge-case matrix, testing targets,
+   honest SIH scorecard.
+7. Document everything; label verified vs assumed vs unknown.</pre>
+    <div class="callout warn"><strong>Epistemics rule used throughout:</strong> every claim carries a status — <em>verified</em> (official source), <em>assumed</em> (reasonable but unverified), or <em>unknown</em> (flagged, never invented). Nothing was fabricated to fill a gap.</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Sources</div>
+    <h2>Primary sources consulted</h2>
+    <table>
+      <tr><th>Source</th><th>Used for</th></tr>
+      <tr><td>Ministry of Education — NIPUN Bharat Guidelines (Jul 2021)</td><td>FLN target, "meaningful assessments", tracking by Grade 3 by 2026–27</td></tr>
+      <tr><td>UDISE+ 2022–23 report (education.gov.in)</td><td>School/student/teacher counts</td></tr>
+      <tr><td>DIKSHA documentation (diksha.gov.in)</td><td>Content, language coverage, NDEAR blocks</td></tr>
+      <tr><td>Saral documentation (saral.in)</td><td>OMR scanning scale, marks-only capture</td></tr>
+      <tr><td>VSK Gujarat (2021, World Bank case study)</td><td>Governance dashboard strengths/limits</td></tr>
+      <tr><td>NDEAR architecture (ndear.gov.in)</td><td>Privacy-by-design principles, building blocks</td></tr>
+      <tr><td>ASER 2024 (asercentre.org)</td><td>Grade-level learning outcome statistics</td></tr>
+      <tr><td>DPDP Act 2023 (meity.gov.in)</td><td>Sections 4, 6, 8, 9, 10, 17, 24 compliance mapping</td></tr>
+      <tr><td>SIH Evaluation Guidelines (siceval.mic.gov.in)</td><td>Judging criteria (percentages verified where available)</td></tr>
+    </table>
+    <p class="small">Full citation list and verification notes live in <a href="../shiksha-radar-plan.md">shiksha-radar-plan.md</a> and <a href="../index.html">index.html</a>.</p>
+  </section>
+
+</div>
+<div class="navbar">
+  <button class="nav-btn" id="prevBtn">← <span>Prev</span></button>
+  <button class="menu-btn" id="menuBtn">☰ Contents</button>
+  <span class="counter" id="counter">1 / 6</span>
+  <button class="nav-btn" id="nextBtn"><span>Next</span> →</button>
+</div>
+<div class="menu" id="menu">
+  <button class="close" id="closeBtn">✕ Close</button>
+  <h3>09 · Roadmap &amp; Methodology</h3>
+  <div id="menuLinks"></div>
+</div>
+<script src="shared/deck.js"></script>
+</body>
+</html>

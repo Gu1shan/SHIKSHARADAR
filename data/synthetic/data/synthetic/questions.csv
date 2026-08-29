@@ -1,0 +1,190 @@
+question_id,text,concept,sub_concept,difficulty,expected_answer
+Q0001,Add 1/2 + 3/7,Fractions,denominator_handling,1,varies
+Q0002,Compare 2/3 and 2/3,Fractions,denominator_handling,1,varies
+Q0003,Subtract 3/7 - 1/3,Fractions,denominator_handling,1,varies
+Q0004,Simplify 1/3,Fractions,denominator_handling,2,varies
+Q0005,Find equivalent fraction of {frac1} with denominator 3,Fractions,denominator_handling,2,varies
+Q0006,Subtract 2/3 - 1/6,Fractions,denominator_handling,2,varies
+Q0007,Simplify 1/2,Fractions,denominator_handling,3,varies
+Q0008,Subtract 3/7 - 2/7,Fractions,denominator_handling,3,varies
+Q0009,Simplify 3/5,Fractions,denominator_handling,3,varies
+Q0010,Reduce 5/6,Fractions,simplification,1,varies
+Q0011,Simplify 4/7 to lowest terms,Fractions,simplification,1,varies
+Q0012,Simplify 3/7 to lowest terms,Fractions,simplification,1,varies
+Q0013,Reduce 3/4,Fractions,simplification,2,varies
+Q0014,Simplify 4/7 to lowest terms,Fractions,simplification,2,varies
+Q0015,Simplify 1/3 to lowest terms,Fractions,simplification,2,varies
+Q0016,Simplify 2/5 to lowest terms,Fractions,simplification,3,varies
+Q0017,Reduce 5/6,Fractions,simplification,3,varies
+Q0018,Simplify 3/7 to lowest terms,Fractions,simplification,3,varies
+Q0019,Add 6/7 + 3/5,Fractions,addition,1,varies
+Q0020,Add 1/6 + 3/4,Fractions,addition,1,varies
+Q0021,Find the sum: 5/6 + 2/3,Fractions,addition,1,varies
+Q0022,Add 1/2 + 2/7,Fractions,addition,2,varies
+Q0023,Add 4/7 + 3/4,Fractions,addition,2,varies
+Q0024,Add 5/7 + 2/3,Fractions,addition,2,varies
+Q0025,Add 3/5 + 3/4,Fractions,addition,3,varies
+Q0026,Find the sum: 2/7 + 5/7,Fractions,addition,3,varies
+Q0027,Find the sum: 1/4 + 2/5,Fractions,addition,3,varies
+Q0028,Find the difference: 2/3 - 2/7,Fractions,subtraction,1,varies
+Q0029,Find the difference: 3/7 - 6/7,Fractions,subtraction,1,varies
+Q0030,Subtract 5/6 - 2/7,Fractions,subtraction,2,varies
+Q0031,Subtract 1/6 - 3/7,Fractions,subtraction,2,varies
+Q0032,Subtract 1/4 - 4/5,Fractions,subtraction,3,varies
+Q0033,Find the difference: 3/4 - 6/7,Fractions,subtraction,3,varies
+Q0034,Multiply 2/7 × 2/5,Fractions,multiplication,1,varies
+Q0035,Multiply 2/3 × 5/7,Fractions,multiplication,1,varies
+Q0036,Multiply 4/7 × 2/5,Fractions,multiplication,2,varies
+Q0037,Find the product: 3/4 × 1/3,Fractions,multiplication,2,varies
+Q0038,Multiply 6/7 × 5/6,Fractions,multiplication,3,varies
+Q0039,Find the product: 2/3 × 2/7,Fractions,multiplication,3,varies
+Q0040,"Compare 3/5 and 6/7 using <, >, or =",Fractions,comparison,1,varies
+Q0041,"Compare 1/4 and 3/4 using <, >, or =",Fractions,comparison,1,varies
+Q0042,Which is greater: 2/3 or 3/7?,Fractions,comparison,2,varies
+Q0043,"Compare 3/7 and 5/6 using <, >, or =",Fractions,comparison,2,varies
+Q0044,"Compare 6/7 and 5/6 using <, >, or =",Fractions,comparison,3,varies
+Q0045,"Compare 2/5 and 2/3 using <, >, or =",Fractions,comparison,3,varies
+Q0046,What is the place value of 0 in 0.7?,Decimals,place_value,1,varies
+Q0047,What is the place value of 6 in 0.75?,Decimals,place_value,1,varies
+Q0048,Identify the tenths/hundredths digit in 0.25,Decimals,place_value,1,varies
+Q0049,Write 0.7 in expanded form,Decimals,place_value,2,varies
+Q0050,What is the place value of 8 in 0.9?,Decimals,place_value,2,varies
+Q0051,Write 2.5 in expanded form,Decimals,place_value,2,varies
+Q0052,What is the place value of 7 in 0.2?,Decimals,place_value,3,varies
+Q0053,What is the place value of 4 in 1.5?,Decimals,place_value,3,varies
+Q0054,Identify the tenths/hundredths digit in 2.5,Decimals,place_value,3,varies
+Q0055,Subtract 0.9 - 0.7,Decimals,addition_subtraction,1,varies
+Q0056,Add 0.3 + 2.5,Decimals,addition_subtraction,1,varies
+Q0057,Add 2.5 + 0.375,Decimals,addition_subtraction,1,varies
+Q0058,Add 0.3 + 0.6,Decimals,addition_subtraction,2,varies
+Q0059,Add 0.375 + 0.3,Decimals,addition_subtraction,2,varies
+Q0060,Subtract 0.5 - 0.1,Decimals,addition_subtraction,2,varies
+Q0061,Add 1.5 + 0.6,Decimals,addition_subtraction,3,varies
+Q0062,Add 0.7 + 2.5,Decimals,addition_subtraction,3,varies
+Q0063,Add 0.9 + 0.6,Decimals,addition_subtraction,3,varies
+Q0064,Multiply 0.7 × 0.125,Decimals,multiplication,1,varies
+Q0065,Find 0.375 × 0.7,Decimals,multiplication,1,varies
+Q0066,Multiply 0.2 × 0.4,Decimals,multiplication,2,varies
+Q0067,Find 0.375 × 0.7,Decimals,multiplication,2,varies
+Q0068,Find 0.1 × 0.1,Decimals,multiplication,3,varies
+Q0069,Multiply 0.5 × 0.8,Decimals,multiplication,3,varies
+Q0070,Divide 0.1 ÷ 0.5,Decimals,division,1,varies
+Q0071,Divide 0.9 ÷ 0.5,Decimals,division,1,varies
+Q0072,Divide 0.375 ÷ 0.5,Decimals,division,2,varies
+Q0073,Find 0.7 ÷ 0.1,Decimals,division,2,varies
+Q0074,Find 0.6 ÷ 0.1,Decimals,division,3,varies
+Q0075,Divide 0.375 ÷ 0.375,Decimals,division,3,varies
+Q0076,"What is the rule for this pattern: 5, 10, 15, 20, ??",Algebra,patterns,1,varies
+Q0077,"Find the next term: 2, 4, 6, 8, ?",Algebra,patterns,1,varies
+Q0078,"Find the next term: 1, 4, 9, 16, ?",Algebra,patterns,1,varies
+Q0079,"Complete the pattern: 2, 4, 6, 8, ?",Algebra,patterns,2,varies
+Q0080,"Complete the pattern: 5, 10, 15, 20, ?",Algebra,patterns,2,varies
+Q0081,"Find the next term: 1, 4, 9, 16, ?",Algebra,patterns,2,varies
+Q0082,"Find the next term: 1, 4, 9, 16, ?",Algebra,patterns,3,varies
+Q0083,"Find the next term: 5, 10, 15, 20, ?",Algebra,patterns,3,varies
+Q0084,"Complete the pattern: 5, 10, 15, 20, ?",Algebra,patterns,3,varies
+Q0085,Write an expression for: 5 more than a number,Algebra,variables,1,varies
+Q0086,"If x = 2, find the value of 3x",Algebra,variables,1,varies
+Q0087,"If x = -3, find the value of x-5",Algebra,variables,1,varies
+Q0088,"If x = 7, find the value of x/2",Algebra,variables,2,varies
+Q0089,"If x = 3, find the value of x-5",Algebra,variables,2,varies
+Q0090,Evaluate x-5 when x = 4,Algebra,variables,2,varies
+Q0091,"If x = 4, find the value of x+7",Algebra,variables,3,varies
+Q0092,"If x = -9, find the value of x+7",Algebra,variables,3,varies
+Q0093,"If x = -8, find the value of x-5",Algebra,variables,3,varies
+Q0094,Solve for x: x/2=4,Algebra,equations,1,varies
+Q0095,Find x: x/2=4,Algebra,equations,1,varies
+Q0096,Solve for x: x/2=4,Algebra,equations,1,varies
+Q0097,Solve for x: x-5=10,Algebra,equations,2,varies
+Q0098,Find x: 2x+3=11,Algebra,equations,2,varies
+Q0099,Find x: 3x=15,Algebra,equations,2,varies
+Q0100,Find x: 3x=15,Algebra,equations,3,varies
+Q0101,Find x: x/2=4,Algebra,equations,3,varies
+Q0102,Solve for x: x-5=10,Algebra,equations,3,varies
+Q0103,Simplify: -5 + -3,Algebra,sign_rules,1,varies
+Q0104,Evaluate: 6 - -3,Algebra,sign_rules,1,varies
+Q0105,Calculate: -12 ÷ -3,Algebra,sign_rules,2,varies
+Q0106,Evaluate: -5 + -3,Algebra,sign_rules,2,varies
+Q0107,Evaluate: -5 + -3,Algebra,sign_rules,3,varies
+Q0108,Evaluate: -12 ÷ -3,Algebra,sign_rules,3,varies
+Q0109,How many sides does a cylinder have?,Geometry,2d_shapes,1,varies
+Q0110,Which of these is a triangle?,Geometry,2d_shapes,1,varies
+Q0111,Identify the shape: a shape with 4 equal sides,Geometry,2d_shapes,1,varies
+Q0112,Which of these is a circle?,Geometry,2d_shapes,2,varies
+Q0113,Which of these is a pyramid?,Geometry,2d_shapes,2,varies
+Q0114,Identify the shape: a shape with 4 equal sides,Geometry,2d_shapes,2,varies
+Q0115,Which of these is a hexagon?,Geometry,2d_shapes,3,varies
+Q0116,How many sides does a triangle have?,Geometry,2d_shapes,3,varies
+Q0117,Which of these is a square?,Geometry,2d_shapes,3,varies
+Q0118,How many faces/edges/vertices does a sphere have?,Geometry,3d_shapes,1,varies
+Q0119,Identify the 3D shape: a shape with 4 equal sides,Geometry,3d_shapes,1,varies
+Q0120,Identify the 3D shape: a shape with 4 equal sides,Geometry,3d_shapes,2,varies
+Q0121,Name the shape with 8 faces and 8 vertices,Geometry,3d_shapes,2,varies
+Q0122,Name the shape with 8 faces and 8 vertices,Geometry,3d_shapes,3,varies
+Q0123,How many faces/edges/vertices does a rectangle have?,Geometry,3d_shapes,3,varies
+Q0124,Find the area of a rectangle with length 19 cm and breadth 4 cm,Geometry,area_perimeter,1,varies
+Q0125,Find the perimeter of a square with side 11 cm,Geometry,area_perimeter,1,varies
+Q0126,A rectangle has area 91 sq cm and length 12 cm. Find its breadth.,Geometry,area_perimeter,1,varies
+Q0127,Find the perimeter of a square with side 10 cm,Geometry,area_perimeter,2,varies
+Q0128,Find the perimeter of a square with side 15 cm,Geometry,area_perimeter,2,varies
+Q0129,Find the area of a rectangle with length 15 cm and breadth 15 cm,Geometry,area_perimeter,2,varies
+Q0130,Find the area of a rectangle with length 2 cm and breadth 7 cm,Geometry,area_perimeter,3,varies
+Q0131,A rectangle has area 66 sq cm and length 10 cm. Find its breadth.,Geometry,area_perimeter,3,varies
+Q0132,A rectangle has area 24 sq cm and length 15 cm. Find its breadth.,Geometry,area_perimeter,3,varies
+Q0133,What type of angle is 135°?,Geometry,angles,1,varies
+Q0134,Classify the angle: 60°,Geometry,angles,1,varies
+Q0135,What type of angle is 135°?,Geometry,angles,2,varies
+Q0136,What type of angle is 135°?,Geometry,angles,2,varies
+Q0137,Classify the angle: 90°,Geometry,angles,3,varies
+Q0138,What type of angle is 60°?,Geometry,angles,3,varies
+Q0139,Draw the line of symmetry for circle,Geometry,symmetry,1,varies
+Q0140,Draw the line of symmetry for pentagon,Geometry,symmetry,1,varies
+Q0141,How many lines of symmetry does a cube have?,Geometry,symmetry,2,varies
+Q0142,How many lines of symmetry does a pentagon have?,Geometry,symmetry,2,varies
+Q0143,How many lines of symmetry does a pentagon have?,Geometry,symmetry,3,varies
+Q0144,Is the figure symmetric? (Yes/No),Geometry,symmetry,3,varies
+Q0145,Convert 2 km to m,Measurement,length,1,varies
+Q0146,Convert 6 km to m,Measurement,length,1,varies
+Q0147,Add: 7 m 87 cm + 9 m 43 cm,Measurement,length,1,varies
+Q0148,Convert 2 m to cm,Measurement,length,2,varies
+Q0149,Convert 3 km to m,Measurement,length,2,varies
+Q0150,Add: 1 m 14 cm + 10 m 56 cm,Measurement,length,2,varies
+Q0151,Convert 6 km to m,Measurement,length,3,varies
+Q0152,Convert 10 km to m,Measurement,length,3,varies
+Q0153,Add: 7 m 74 cm + 4 m 33 cm,Measurement,length,3,varies
+Q0154,Convert 7 kg to g,Measurement,weight,1,varies
+Q0155,Convert 9 kg to g,Measurement,weight,1,varies
+Q0156,Total weight: 6 kg 56 g + 2 kg 86 g,Measurement,weight,2,varies
+Q0157,Convert 10 g to kg,Measurement,weight,2,varies
+Q0158,Convert 2 g to kg,Measurement,weight,3,varies
+Q0159,Total weight: 9 kg 40 g + 7 kg 42 g,Measurement,weight,3,varies
+Q0160,Convert 5 mL to L,Measurement,capacity,1,varies
+Q0161,Total capacity: 4 L 54 mL + 7 L 87 mL,Measurement,capacity,1,varies
+Q0162,Total capacity: 10 L 73 mL + 5 L 52 mL,Measurement,capacity,2,varies
+Q0163,Total capacity: 5 L 37 mL + 4 L 56 mL,Measurement,capacity,2,varies
+Q0164,Total capacity: 6 L 60 mL + 8 L 57 mL,Measurement,capacity,3,varies
+Q0165,Total capacity: 9 L 61 mL + 3 L 85 mL,Measurement,capacity,3,varies
+Q0166,Convert 5 hours to minutes,Measurement,time,1,varies
+Q0167,What time is 10 minutes after 6:05?,Measurement,time,1,varies
+Q0168,Convert 5 hours to minutes,Measurement,time,2,varies
+Q0169,Convert 4 hours to minutes,Measurement,time,2,varies
+Q0170,Convert 1 hours to minutes,Measurement,time,3,varies
+Q0171,Convert 4 hours to minutes,Measurement,time,3,varies
+Q0172,What is the total frequency in the table?,Data_Handling,tables,1,varies
+Q0173,Find the missing value in the table,Data_Handling,tables,1,varies
+Q0174,What is the total frequency in the table?,Data_Handling,tables,2,varies
+Q0175,What is the total frequency in the table?,Data_Handling,tables,2,varies
+Q0176,Find the missing value in the table,Data_Handling,tables,3,varies
+Q0177,Find the missing value in the table,Data_Handling,tables,3,varies
+Q0178,What is the value for Mangoes?,Data_Handling,bar_graphs,1,varies
+Q0179,Which category has the highest value?,Data_Handling,bar_graphs,1,varies
+Q0180,What is the value for Bananas?,Data_Handling,bar_graphs,2,varies
+Q0181,How many more Apples than Bananas?,Data_Handling,bar_graphs,2,varies
+Q0182,How many more Apples than Bananas?,Data_Handling,bar_graphs,3,varies
+Q0183,What is the value for Apples?,Data_Handling,bar_graphs,3,varies
+Q0184,"If one symbol represents 9, how many for Apples?",Data_Handling,pictographs,1,varies
+Q0185,"If one symbol represents 10, how many for Mangoes?",Data_Handling,pictographs,1,varies
+Q0186,Total count represented by the pictograph,Data_Handling,pictographs,2,varies
+Q0187,Total count represented by the pictograph,Data_Handling,pictographs,2,varies
+Q0188,Which category has 10 symbols?,Data_Handling,pictographs,3,varies
+Q0189,Total count represented by the pictograph,Data_Handling,pictographs,3,varies

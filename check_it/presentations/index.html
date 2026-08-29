@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — Presentation Hub</title>
+<link rel="stylesheet" href="shared/deck.css">
+<style>
+  body { overflow: auto; padding: 48px 32px; max-width: 1100px; margin: 0 auto; }
+  .hero { padding: 24px 0 12px; }
+  .hero h1 { font-size: 2.4rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-top: 28px; }
+  .card { transition: transform .15s, border-color .15s; text-decoration: none; display: block; color: inherit; }
+  .card:hover { transform: translateY(-4px); border-color: var(--accent); }
+  .card h4 { color: var(--accent); font-size: 1.05rem; }
+  .card .tag { font-size: .72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+  .card .slides-count { font-size: .78rem; color: var(--text-dim); margin-top: 8px; }
+  .footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); color: var(--text-dim); font-size: .82rem; }
+  .nav-group { font-size: .72rem; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 700; margin: 22px 0 8px; }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="kicker">Presentation Hub · Smart India Hackathon</div>
+    <h1>Shiksha Radar</h1>
+    <p class="tag">"Find the learning gap before it becomes a learning failure."</p>
+    <p class="muted">Nine topic-specific presentations. Navigate with <strong>→ / ←</strong> arrow keys inside each deck, or use the contents menu. Every deck is self-contained and print-friendly (Ctrl/Cmd + P).</p>
+  </div>
+
+  <div class="nav-group">Topic Presentations</div>
+  <div class="cards">
+    <a class="card" href="01-problem-research.html">
+      <div class="tag">Problem &amp; Research</div>
+      <h4>01 · Problem &amp; Research</h4>
+      <p>India's learning crisis, why marks fail, the education ecosystem (UDISE+, DIKSHA, Saral, VSK, NDEAR), competitor gap.</p>
+      <div class="slides-count">5 slides</div>
+    </a>
+    <a class="card" href="02-innovation-product.html">
+      <div class="tag">Innovation &amp; Product</div>
+      <h4>02 · Innovation &amp; Product</h4>
+      <p>Mistake fingerprinting, what makes it different, the end-to-end workflow, user personas.</p>
+      <div class="slides-count">5 slides</div>
+    </a>
+    <a class="card" href="03-architecture-stack.html">
+      <div class="tag">Architecture &amp; Stack</div>
+      <h4>03 · Architecture &amp; Stack</h4>
+      <p>Three-level architecture (MVP → SIH → production), the minimum sensible stack, what's deliberately excluded.</p>
+      <div class="slides-count">5 slides</div>
+    </a>
+    <a class="card" href="04-ai-architecture.html">
+      <div class="tag">AI &amp; LLM</div>
+      <h4>04 · AI Architecture</h4>
+      <p>Where AI is used and where it isn't, guarded LLM layer, hallucination control, concept mapping with embeddings.</p>
+      <div class="slides-count">5 slides</div>
+    </a>
+    <a class="card" href="05-algorithms-dashboard.html">
+      <div class="tag">Algorithms &amp; UI</div>
+      <h4>05 · Algorithms &amp; Dashboard</h4>
+      <p>Mistake detection pipeline, fingerprinting algorithm, confidence scoring, intervention engine, the 4-screen dashboard.</p>
+      <div class="slides-count">6 slides</div>
+    </a>
+    <a class="card" href="06-data-privacy.html">
+      <div class="tag">Data &amp; Governance</div>
+      <h4>06 · Data, Privacy &amp; Responsible AI</h4>
+      <p>Datasets, synthetic data archetypes, database design, DPDP Act 2023 compliance, responsible-AI safeguards.</p>
+      <div class="slides-count">5 slides</div>
+    </a>
+    <a class="card" href="07-testing-deployment.html">
+      <div class="tag">Quality &amp; Scale</div>
+      <h4>07 · Testing, Deployment &amp; Scaling</h4>
+      <p>Functional + AI evaluation, edge cases, deployment path, 50 → 50K scalability, offline &amp; multilingual.</p>
+      <div class="slides-count">6 slides</div>
+    </a>
+    <a class="card" href="08-sih-demo.html">
+      <div class="tag">SIH Readiness</div>
+      <h4>08 · SIH Evaluation &amp; Demo</h4>
+      <p>Judging-criteria scorecard, honest risks, the 3-minute demo script, likely judge questions.</p>
+      <div class="slides-count">5 slides</div>
+    </a>
+    <a class="card" href="09-roadmap-methodology.html">
+      <div class="tag">Execution &amp; Method</div>
+      <h4>09 · Roadmap &amp; Methodology</h4>
+      <p>8–12 week learn-while-building roadmap, repository structure, first 7 days, the research procedure, sources.</p>
+      <div class="slides-count">6 slides</div>
+    </a>
+  </div>
+
+  <div class="nav-group">Master Documents</div>
+  <div class="cards">
+    <a class="card" href="../index.html">
+      <div class="tag">Full Document</div>
+      <h4>Complete findings &amp; plan (index.html)</h4>
+      <p>All 26 parts of the research and implementation plan in a readable, scrollable document.</p>
+    </a>
+    <a class="card" href="../presentation.html">
+      <div class="tag">Master Deck</div>
+      <h4>Full 27-slide presentation</h4>
+      <p>The entire project as one continuous slide deck.</p>
+    </a>
+    <a class="card" href="../shiksha-radar-plan.md">
+      <div class="tag">Markdown</div>
+      <h4>Source plan (shiksha-radar-plan.md)</h4>
+      <p>The full plan in Markdown for editing and version control.</p>
+    </a>
+  </div>
+
+  <div class="footer">
+    <p><strong>Shiksha Radar</strong> — Research findings &amp; implementation plan · Prepared August 2026. All external claims carry sources in the plan documents; where official/current SIH specifics were unavailable, this is flagged rather than invented.</p>
+  </div>
+</body>
+</html>

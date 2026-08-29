@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — 02 Innovation &amp; Product</title>
+<link rel="stylesheet" href="shared/deck.css">
+</head>
+<body>
+<a class="home-link" href="index.html">← Hub</a>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <section class="slide title-slide">
+    <div class="kicker">Shiksha Radar · Presentation 02</div>
+    <div class="logo">Innovation &amp; Product</div>
+    <div class="tag">"Find the learning gap before it becomes a learning failure."</div>
+    <p class="big">Mistake fingerprinting, the workflow, and the people it serves</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">The Innovation</div>
+    <h2>Mistake Fingerprinting</h2>
+    <p class="big">Every student develops a pattern of errors across assessments. Shiksha Radar fingerprints that pattern — by concept and by error type — over time.</p>
+    <div class="grid g2 mt">
+      <div class="card"><h4>Traditional view</h4><pre>"Student scored 60% on Fractions"</pre></div>
+      <div class="card"><h4>Shiksha Radar view</h4><pre>"Fractions → 7 errors across 3 assessments (84% confidence)
+ ├─ Denominator handling: 5 (recurring, ↑ trend)
+ ├─ Simplification: 1 (isolated)
+ └─ Addition: 1 (careless)
+ → Equivalent fractions review + 5 targeted problems"</pre></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">What Makes It Different</div>
+    <h2>Not a dashboard, not a chatbot, not a predictor</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h4>It is NOT</h4>
+        <ul>
+          <li>A marks dashboard or attendance tracker</li>
+          <li>A generic AI tutor or chatbot</li>
+          <li>A "who will fail" prediction engine</li>
+          <li>A replacement for the teacher</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>It IS</h4>
+        <ul>
+          <li><strong>Concept-granular</strong> — which concept, which error type</li>
+          <li><strong>Longitudinal</strong> — patterns across assessments</li>
+          <li><strong>Evidence-cited</strong> — every claim shows counts + confidence</li>
+          <li><strong>Decision-supporting</strong> — the teacher stays in charge</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout ok"><strong>Core positioning:</strong> it reports <em>"which concepts show repeated difficulty, the evidence, and what might help"</em> — never "this child will fail."</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Product Workflow</div>
+    <h2>The end-to-end loop</h2>
+    <pre>Student assessments
+        ↓
+Answers + scores + assessment history
+        ↓
+Mistake analysis → Concept mapping → Repeated error detection
+        ↓
+Learning-pattern analysis → Student learning profile
+        ↓
+Teacher dashboard → Evidence-based intervention recommendation
+        ↓
+Targeted practice → Reassessment → Measure improvement</pre>
+    <div class="callout ok"><strong>The feedback loop is the product:</strong> Detect → Intervene → Reassess → Compare → "Gap closed" or "Persisted". Interventions activate only after <strong>teacher approval</strong>.</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Who It Serves</div>
+    <h2>User personas — designed around real workflows</h2>
+    <div class="grid g2">
+      <div class="card"><h4>👩‍🏫 Priya — Grade 5 Teacher</h4><p>40 students, multi-grade. Pain: no time to analyze papers.</p><p class="muted">Value: upload CSV → 30 sec → "Fractions: 12/40 struggling with denominators" → printable practice sheets.</p></div>
+      <div class="card"><h4>🧑‍💼 Rajesh — Block Resource Person</h4><p>Supports 50 schools. Pain: needs systemic gaps for training.</p><p class="muted">Value: aggregate view — "denominator errors high in 35/50 schools → district workshop."</p></div>
+      <div class="card"><h4>👧 Anita — Student (indirect)</h4><p>Gets generic "do more practice" homework.</p><p class="muted">Value: targeted 5-question worksheet on her gap; sees progress next test.</p></div>
+      <div class="card"><h4>🏫 Principal / Admin</h4><p>Reports to district on learning outcomes.</p><p class="muted">Value: auto-generated "Learning Gap Report" with evidence for SMC/SMDC meetings.</p></div>
+    </div>
+  </section>
+
+</div>
+<div class="navbar">
+  <button class="nav-btn" id="prevBtn">← <span>Prev</span></button>
+  <button class="menu-btn" id="menuBtn">☰ Contents</button>
+  <span class="counter" id="counter">1 / 5</span>
+  <button class="nav-btn" id="nextBtn"><span>Next</span> →</button>
+</div>
+<div class="menu" id="menu">
+  <button class="close" id="closeBtn">✕ Close</button>
+  <h3>02 · Innovation &amp; Product</h3>
+  <div id="menuLinks"></div>
+</div>
+<script src="shared/deck.js"></script>
+</body>
+</html>

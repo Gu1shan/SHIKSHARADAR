@@ -1,0 +1,61 @@
+question_id,text,concept,sub_concept,difficulty,expected_answer
+Q0001,Compare 1/2 and 1/2,Fractions,denominator_handling,1,varies
+Q0002,Compare 2/3 and 1/3,Fractions,denominator_handling,1,varies
+Q0003,Add 1/3 + 3/5,Fractions,denominator_handling,1,varies
+Q0004,Add 3/5 + 3/5,Fractions,denominator_handling,2,varies
+Q0005,Compare 1/2 and 2/5,Fractions,denominator_handling,2,varies
+Q0006,Subtract 1/2 - 1/2,Fractions,denominator_handling,2,varies
+Q0007,Add 1/3 + 1/3,Fractions,denominator_handling,3,varies
+Q0008,Compare 2/5 and 1/2,Fractions,denominator_handling,3,varies
+Q0009,Compare 1/3 and 3/5,Fractions,denominator_handling,3,varies
+Q0010,Simplify 1/3 to lowest terms,Fractions,simplification,1,varies
+Q0011,Simplify 4/5 to lowest terms,Fractions,simplification,1,varies
+Q0012,Simplify 4/5 to lowest terms,Fractions,simplification,1,varies
+Q0013,Simplify 3/5 to lowest terms,Fractions,simplification,2,varies
+Q0014,Simplify 2/3 to lowest terms,Fractions,simplification,2,varies
+Q0015,Simplify 4/5 to lowest terms,Fractions,simplification,2,varies
+Q0016,Simplify 1/2 to lowest terms,Fractions,simplification,3,varies
+Q0017,Simplify 2/3 to lowest terms,Fractions,simplification,3,varies
+Q0018,Simplify 2/5 to lowest terms,Fractions,simplification,3,varies
+Q0019,What is the place value of {digit} in {decimal}?,Decimals,place_value,1,varies
+Q0020,Identify the tenths/hundredths digit in {decimal},Decimals,place_value,1,varies
+Q0021,Write {decimal} in expanded form,Decimals,place_value,1,varies
+Q0022,Identify the tenths/hundredths digit in {decimal},Decimals,place_value,2,varies
+Q0023,What is the place value of {digit} in {decimal}?,Decimals,place_value,2,varies
+Q0024,Write {decimal} in expanded form,Decimals,place_value,2,varies
+Q0025,What is the place value of {digit} in {decimal}?,Decimals,place_value,3,varies
+Q0026,Identify the tenths/hundredths digit in {decimal},Decimals,place_value,3,varies
+Q0027,Write {decimal} in expanded form,Decimals,place_value,3,varies
+Q0028,What is the rule for this pattern: {pattern}?,Algebra,patterns,1,varies
+Q0029,What is the rule for this pattern: {pattern}?,Algebra,patterns,1,varies
+Q0030,Find the next term: {pattern},Algebra,patterns,1,varies
+Q0031,What is the rule for this pattern: {pattern}?,Algebra,patterns,2,varies
+Q0032,Complete the pattern: {pattern},Algebra,patterns,2,varies
+Q0033,What is the rule for this pattern: {pattern}?,Algebra,patterns,2,varies
+Q0034,Complete the pattern: {pattern},Algebra,patterns,3,varies
+Q0035,Complete the pattern: {pattern},Algebra,patterns,3,varies
+Q0036,What is the rule for this pattern: {pattern}?,Algebra,patterns,3,varies
+Q0037,How many sides does a {shape} have?,Geometry,2d_shapes,1,varies
+Q0038,Identify the shape: {description},Geometry,2d_shapes,1,varies
+Q0039,How many sides does a {shape} have?,Geometry,2d_shapes,1,varies
+Q0040,How many sides does a {shape} have?,Geometry,2d_shapes,2,varies
+Q0041,How many sides does a {shape} have?,Geometry,2d_shapes,2,varies
+Q0042,Identify the shape: {description},Geometry,2d_shapes,2,varies
+Q0043,Identify the shape: {description},Geometry,2d_shapes,3,varies
+Q0044,Identify the shape: {description},Geometry,2d_shapes,3,varies
+Q0045,Which of these is a {shape}?,Geometry,2d_shapes,3,varies
+Q0046,Convert {val} km to m,Measurement,length,1,varies
+Q0047,Convert {val} m to cm,Measurement,length,1,varies
+Q0048,Convert {val} km to m,Measurement,length,1,varies
+Q0049,Convert {val} km to m,Measurement,length,2,varies
+Q0050,Convert {val} m to cm,Measurement,length,2,varies
+Q0051,Add: {val1} m {val2} cm + {val3} m {val4} cm,Measurement,length,2,varies
+Q0052,Convert {val} km to m,Measurement,length,3,varies
+Q0053,Add: {val1} m {val2} cm + {val3} m {val4} cm,Measurement,length,3,varies
+Q0054,Add: {val1} m {val2} cm + {val3} m {val4} cm,Measurement,length,3,varies
+Q0055,Find the missing value in the table,Data_Handling,tables,1,varies
+Q0056,How many students scored between {range}?,Data_Handling,tables,1,varies
+Q0057,Find the missing value in the table,Data_Handling,tables,2,varies
+Q0058,Find the missing value in the table,Data_Handling,tables,2,varies
+Q0059,How many students scored between {range}?,Data_Handling,tables,3,varies
+Q0060,Find the missing value in the table,Data_Handling,tables,3,varies

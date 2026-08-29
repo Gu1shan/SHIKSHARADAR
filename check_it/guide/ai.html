@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — AI &amp; Trust</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+  <span class="t-title" id="tTitle">AI &amp; Trust</span>
+</div>
+<div class="sidebar-backdrop" id="backdrop"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="logo">Shiksha Radar</div>
+    <div class="tagline">Find the learning gap before it becomes a learning failure.</div>
+  </div>
+  <nav>
+    <div class="nav-group">Overview</div>
+    <a href="index.html"><span class="dot"></span>Project Guide</a>
+    <div class="nav-group">Research &amp; Design</div>
+    <a href="problem.html"><span class="dot"></span>Problem &amp; Research</a>
+    <a href="innovation.html"><span class="dot"></span>Innovation &amp; Product</a>
+    <a href="architecture.html"><span class="dot"></span>Architecture &amp; Stack</a>
+    <a href="ai.html"><span class="dot"></span>AI &amp; Trust</a>
+    <div class="nav-group">Core Systems</div>
+    <a href="algorithms.html"><span class="dot"></span>Algorithms &amp; Dashboard</a>
+    <a href="data.html"><span class="dot"></span>Data, Privacy &amp; RAI</a>
+    <a href="testing.html"><span class="dot"></span>Testing, Deployment &amp; Scale</a>
+    <div class="nav-group">Delivery</div>
+    <a href="sih.html"><span class="dot"></span>SIH Evaluation &amp; Demo</a>
+    <a href="roadmap.html"><span class="dot"></span>Roadmap &amp; Execution</a>
+    <a href="sources.html"><span class="dot"></span>Sources &amp; References</a>
+  </nav>
+  <div class="foot">Smart India Hackathon · Prepared August 2026</div>
+</aside>
+
+<main class="main">
+  <div class="kicker">Part 04 · AI Architecture</div>
+  <h1>Where AI is used — and where it is NOT</h1>
+  <p class="lead">The most important AI decision in this project is the boundary. The LLM is a <strong>writer, never a judge</strong> — it explains findings, it never produces them.</p>
+
+  <div class="grid g2">
+    <div class="card reveal">
+      <h4>✅ AI is used for</h4>
+      <ul>
+        <li>Question → concept mapping (embeddings)</li>
+        <li>Short-answer intent detection (non-graded)</li>
+        <li>Grouping similar concepts into families</li>
+        <li>Teacher-facing explanations in plain language</li>
+        <li>Generating practice-sheet variants</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h4>🚫 AI is NOT used for</h4>
+      <ul>
+        <li>Final grading — deterministic rules decide</li>
+        <li>Diagnosis — rules + statistics decide, LLM only explains</li>
+        <li>Pass/fail or risk prediction on students</li>
+        <li>Unsupervised raw grading of answers</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Prompt architecture — evidence in, explanations out</h2>
+  <pre>[CONTEXT]
+  Student pseudonymized (Student_001), Grade 5, Mathematics
+  - Assessment window: 2026-03-01 → 2026-06-01
+  - Confidence of finding: 84% (7 errors / 8 responses over 3 assessments)
+[STRUCTURED FINDINGS — JSON]
+  {"concept": "fractions", "error_type": "denominator_handling",
+   "error_count": 7, "recurring": true, "trend": "increasing",
+   "confidence": 0.84, "evidence": [{"q": "Q12", "topic": "add_fractions", "error": "wrong_common_denominator"}]}
+[TASK]
+  Explain this finding to a teacher in 3 sentences. Plain language.
+  State the confidence. Suggest one concrete review activity.
+  Do NOT invent claims. If unsure, say "unclear".</pre>
+  <div class="callout warn"><strong>Guardrails:</strong> temperature ≤ 0.2 · structured JSON schema · evidence must cite question IDs · "unsure → say unclear" · nothing outside the provided JSON.</div>
+
+  <h2>Hallucination &amp; bias controls</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h4>Hallucination control</h4>
+      <ul>
+        <li>LLM sees only structured evidence — never raw PII</li>
+        <li>Strict output schema; rejected outputs are retried ≤ 2×</li>
+        <li>Every explanation displays a citation block + confidence</li>
+        <li>Rule-based layer unaffected if LLM is offline</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Bias &amp; fairness control</h4>
+      <ul>
+        <li>No ethnicity/income/locale features in detection</li>
+        <li>Thresholds uniform per concept, not per student</li>
+        <li>Equity drill-down compares support needs by class/cohort, never names</li>
+        <li>Language approved: "possible learning gap", "may benefit from additional support", "confidence: X%"</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout danger"><strong>Forbidden language:</strong> never "weak", "bad", "failing", "at risk", "hopeless". Findings are probabilistic hypotheses backed by evidence, reviewable by the teacher.</div>
+
+  <h2>Rules first, embeddings to generalize</h2>
+  <pre>Layer 1 — Explicit mapping (curated, deterministic)
+  question.metadata.topic == "fractions/denominator"  →  concept: fractions
+
+Layer 2 — Embedding similarity (generalization)
+  question → paraphrase-MiniLM-L6-v2 → vector
+  compare with concept prototypes (cosine ≥ 0.65)
+  → "find equivalent fraction" ≈ fractions/equivalent_fractions
+
+Layer 3 — Consensus fallback
+  no match & low confidence  →  flag for review, do NOT guess</pre>
+  <p class="muted">Embedding threshold 0.65 means strict matches only; uncertainty is surfaced, never hidden.</p>
+  <div class="callout ok"><strong>Result:</strong> concept mapping is auditable (you can trace why a question landed in a concept) yet flexible enough for new question banks.</div>
+</main>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

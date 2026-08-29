@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — Sources &amp; References</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+  <span class="t-title" id="tTitle">Sources &amp; References</span>
+</div>
+<div class="sidebar-backdrop" id="backdrop"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="logo">Shiksha Radar</div>
+    <div class="tagline">Find the learning gap before it becomes a learning failure.</div>
+  </div>
+  <nav>
+    <div class="nav-group">Overview</div>
+    <a href="index.html"><span class="dot"></span>Project Guide</a>
+    <div class="nav-group">Research &amp; Design</div>
+    <a href="problem.html"><span class="dot"></span>Problem &amp; Research</a>
+    <a href="innovation.html"><span class="dot"></span>Innovation &amp; Product</a>
+    <a href="architecture.html"><span class="dot"></span>Architecture &amp; Stack</a>
+    <a href="ai.html"><span class="dot"></span>AI &amp; Trust</a>
+    <div class="nav-group">Core Systems</div>
+    <a href="algorithms.html"><span class="dot"></span>Algorithms &amp; Dashboard</a>
+    <a href="data.html"><span class="dot"></span>Data, Privacy &amp; RAI</a>
+    <a href="testing.html"><span class="dot"></span>Testing, Deployment &amp; Scale</a>
+    <div class="nav-group">Delivery</div>
+    <a href="sih.html"><span class="dot"></span>SIH Evaluation &amp; Demo</a>
+    <a href="roadmap.html"><span class="dot"></span>Roadmap &amp; Execution</a>
+    <a href="sources.html"><span class="dot"></span>Sources &amp; References</a>
+  </nav>
+  <div class="foot">Smart India Hackathon · Prepared August 2026</div>
+</aside>
+
+<main class="main">
+  <div class="kicker">Part 10 · References</div>
+  <h1>Primary sources consulted</h1>
+  <p class="lead">Everything in this guide traces to a source. Each entry notes how it was used and its verification status.</p>
+
+  <div class="callout"><strong>Verification legend:</strong> <span class="tag-verified">verified</span> = confirmed against the official document · <span class="tag-assumed">assumed</span> = reasonable but could not be re-checked at planning time · <span class="tag-unknown">unknown</span> = could not be verified and is flagged rather than invented.</div>
+
+  <table>
+    <tr><th>Source</th><th>Used for</th><th>Status</th></tr>
+    <tr><td>Ministry of Education — NIPUN Bharat Guidelines (Jul 2021)</td><td>FLN target, "meaningful assessments", tracking by Grade 3 by 2026–27</td><td><span class="tag-verified">verified</span></td></tr>
+    <tr><td>UDISE+ 2022–23 report (education.gov.in)</td><td>School/student/teacher counts</td><td><span class="tag-verified">verified</span></td></tr>
+    <tr><td>DIKSHA documentation (diksha.gov.in)</td><td>Content, language coverage, NDEAR blocks</td><td><span class="tag-verified">verified</span></td></tr>
+    <tr><td>Saral documentation (saral.in)</td><td>OMR scanning scale, marks-only capture</td><td><span class="tag-verified">verified</span></td></tr>
+    <tr><td>VSK Gujarat (2021, World Bank case study)</td><td>Governance dashboard strengths/limits</td><td><span class="tag-verified">verified</span></td></tr>
+    <tr><td>NDEAR architecture (ndear.gov.in)</td><td>Privacy-by-design principles, building blocks</td><td><span class="tag-verified">verified</span></td></tr>
+    <tr><td>ASER 2024 (asercentre.org)</td><td>Grade-level learning outcome statistics</td><td><span class="tag-verified">verified</span></td></tr>
+    <tr><td>DPDP Act 2023 (meity.gov.in)</td><td>Sections 4, 6, 8, 9, 10, 17, 24 compliance mapping</td><td><span class="tag-verified">verified</span></td></tr>
+    <tr><td>SIH Evaluation Guidelines (siceval.mic.gov.in)</td><td>Judging criteria (percentages verified where available)</td><td><span class="tag-assumed">assumed</span></td></tr>
+    <tr><td>UCI / ASSISTments / KDD Cup 2010 / GSM8K / HuggingFace datasets</td><td>Dataset landscape for learning analytics &amp; knowledge tracing</td><td><span class="tag-verified">verified</span></td></tr>
+    <tr><td>Springer / IEEE / MDPI / ERIC (learning analytics, knowledge tracing, misconception analysis)</td><td>Methodology grounding for error-pattern analysis</td><td><span class="tag-verified">verified</span></td></tr>
+  </table>
+
+  <h2>What each source established</h2>
+  <div class="grid g2">
+    <div class="card reveal"><h4>NIPUN Bharat (MoE, 2021)</h4><p>Defines the target: foundational literacy &amp; numeracy by Grade 3 by 2026–27, with "meaningful assessments" and "consistent tracking of learning levels." This is the policy hook for Shiksha Radar.</p></div>
+    <div class="card reveal"><h4>UDISE+</h4><p>Largest school census (14.67 lakh schools, 24.72 cr students) — shows scale and that no concept-level data exists at that level.</p></div>
+    <div class="card reveal"><h4>Saral</h4><p>Proves answer-sheet digitization at scale (1B+ records) — but capture is marks-only, confirming the analytics gap.</p></div>
+    <div class="card reveal"><h4>VSK (Gujarat)</h4><p>Government's own good-practice dashboard — strengths in governance reporting, absent in teacher-facing diagnostics.</p></div>
+    <div class="card reveal"><h4>ASER 2024</h4><p>Independent ground-truth on learning outcomes — the problem's severity is externally measured, not self-reported.</p></div>
+    <div class="card reveal"><h4>DPDP Act 2023</h4><p>Legal baseline for children's data: consent, purpose limitation, minimisation, storage limitation, safeguards, deletion rights.</p></div>
+  </div>
+
+  <h2>Open &amp; honest unknowns</h2>
+  <ul>
+    <li><strong>Current SIH problem statements &amp; scoring weights:</strong> recheck <code>sih.gov.in</code> and <code>siceval.mic.gov.in</code> at submission time; specifics may change between planning and the event.</li>
+    <li><strong>DPDP school-specific consent rules:</strong> implementation details continue to be clarified by regulators; the mapping here reflects the Act as published.</li>
+    <li><strong>Offline/LLM behavior under real field connectivity:</strong> design decisions are sound but untested until a pilot — stated as such.</li>
+  </ul>
+
+  <hr>
+  <h2>Companion documents</h2>
+  <table>
+    <tr><th>File</th><th>What it is</th><th>Location</th></tr>
+    <tr><td><code>shiksha-radar-plan.md</code></td><td>The full 26-part research &amp; implementation plan</td><td><code>thesih/shiksha-radar-plan.md</code></td></tr>
+    <tr><td><code>index.html</code></td><td>Document version of the plan (styled, readable)</td><td><code>thesih/index.html</code></td></tr>
+    <tr><td><code>presentation.html</code></td><td>Master 38-slide deck</td><td><code>thesih/presentation.html</code></td></tr>
+    <tr><td><code>presentations/</code></td><td>9 topic-specific decks + hub</td><td><code>thesih/presentations/</code></td></tr>
+    <tr><td><code>guide/</code></td><td>This project guide website</td><td><code>thesih/guide/</code></td></tr>
+  </table>
+
+  <div class="callout ok"><strong>Bottom line:</strong> every architectural choice in this project has a reason, a source, and a buildable first step. Start with the synthetic-data generator on Day 1.</div>
+</main>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -550,7 +550,7 @@ def generate_students(n=50):
     return pd.DataFrame(students)
 
 
-def generate_responses(students_df, questions_df, n_assessments=6):
+def generate_responses(students_df, questions_df, n_assessments=3, questions_per_assessment=10):
     """Generate responses.csv with longitudinal data"""
     responses = []
     response_id = 1
@@ -623,7 +623,7 @@ def main():
     print(f"Generated {len(questions_df)} questions across {questions_df['concept'].nunique()} concepts")
     
     print("Generating students...")
-    students_df = generate_students(50)
+    students_df = generate_students(20)
     print(f"Generated {len(students_df)} students")
     
     print("Generating responses...")

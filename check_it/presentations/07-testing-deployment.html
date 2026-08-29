@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — 07 Testing, Deployment &amp; Scaling</title>
+<link rel="stylesheet" href="shared/deck.css">
+</head>
+<body>
+<a class="home-link" href="index.html">← Hub</a>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <section class="slide title-slide">
+    <div class="kicker">Shiksha Radar · Presentation 07</div>
+    <div class="logo">Testing, Deployment &amp; Scaling</div>
+    <div class="tag">"Find the learning gap before it becomes a learning failure."</div>
+    <p class="big">Prove the system works — then scale it deliberately</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Testing</div>
+    <h2>Prove it works — not just that it runs</h2>
+    <table>
+      <tr><th>Layer</th><th>What is tested</th><th>Tool</th></tr>
+      <tr><td>Unit</td><td>normalizer, classifier, confidence math</td><td>pytest</td></tr>
+      <tr><td>Golden set</td><td>20 hand-labeled Q/A pairs → exact classification match</td><td>pytest fixtures</td></tr>
+      <tr><td>Integration</td><td>CSV → pipeline → DB → dashboard</td><td>pytest + Streamlit test client</td></tr>
+      <tr><td><strong>AI evaluation</strong></td><td>Ground-truth metrics (TP/FP/FN, precision, recall, F1) on synthetic data</td><td>pytest + metrics script</td></tr>
+      <tr><td>LLM</td><td>Schema conformance, hallucination check ("no inventing"), consistency on re-runs</td><td>pytest + prompt harness</td></tr>
+      <tr><td>System/E2E</td><td>Demo script end-to-end, all four screens</td><td>manual + recorded demo</td></tr>
+    </table>
+    <div class="callout ok"><strong>Target bar:</strong> recall ≥ 0.85 and precision ≥ 0.80 on planted-error synthetic data before SIH; every metric displayed with the numbers, not adjectives.</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Edge Cases</div>
+    <h2>Tested edge cases — because the demo will hit them</h2>
+    <div class="grid g2 mt">
+      <div class="card"><h4>Data edge cases</h4>
+        <ul>
+          <li>Duplicate student IDs</li>
+          <li>Empty / all-correct / all-wrong answer files</li>
+          <li>Question ID not in bank</li>
+          <li>Non-standard answer strings</li>
+          <li>Concept mismatch (embedding low confidence)</li>
+        </ul>
+      </div>
+      <div class="card"><h4>Behavior edge cases</h4>
+        <ul>
+          <li>Single assessment (fewer than 2 → "initial indication")</li>
+          <li>Errors below threshold → shown but not flagged</li>
+          <li>LLM down / offline → rule-based flow still works</li>
+          <li>Teacher approves then rejects intervention → clean states</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout warn"><strong>Honesty rule:</strong> every edge case has a defined output; "insufficient data" is a first-class result, never a crash or a guess.</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Deployment</div>
+    <h2>From $0 MVP to district scale — deliberately</h2>
+    <table>
+      <tr><th>Stage</th><th>Platform</th><th>Est. cost</th><th>Enables</th></tr>
+      <tr><td>MVP</td><td>Streamlit Cloud (free)</td><td>$0</td><td>Public demo, feedback</td></tr>
+      <tr><td>SIH prototype</td><td>Streamlit Cloud + SQLite + Groq/Gemini free tier</td><td>~$0</td><td>Full loop demo</td></tr>
+      <tr><td>Pilot school</td><td>Cloud Run + PostgreSQL</td><td>~$25/mo</td><td>Real usage, auth</td></tr>
+      <tr><td>District (50 schools)</td><td>+ PostgreSQL managed, CDN</td><td>~$150/mo</td><td>Reliability, support</td></tr>
+      <tr><td>Multi-district / state</td><td>+ K8s, Redis, monitoring</td><td>~$700+/mo</td><td>High availability</td></tr>
+    </table>
+    <div class="callout"><strong>Verdict:</strong> production stack (FastAPI, PostgreSQL, React PWA, Docker) is a <em>post-SIH</em> investment. The prototype wins on a working loop, not on infrastructure.</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Scalability</div>
+    <h2>50 → 50K students: where scaling actually bites</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h4>What scales cheaply</h4>
+        <ul>
+          <li>Rule-based detection — pure compute, cacheable</li>
+          <li>Embedding concept mapping — batchable, model is tiny</li>
+          <li>SQLite → PostgreSQL — schema already normal-form</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>What needs care</h4>
+        <ul>
+          <li>LLM calls — batch/queue, cache identical prompts</li>
+          <li>Heatmap rendering — pre-aggregate, don't compute live</li>
+          <li>Offline sync conflicts — last-write-wins + audit log</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout ok"><strong>Offline-first (post-SIH):</strong> Service Worker caches app + quantized model (~20 MB) + question bank; IndexedDB holds local data; Background Sync flushes uploads and LLM jobs when online. Multilingual via i18n JSON + per-question translations + model-supported languages only.</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Operations</div>
+    <h2>Observability &amp; maintenance plan</h2>
+    <table>
+      <tr><th>Concern</th><th>Tool / practice</th></tr>
+      <tr><td>App errors</td><td>Sentry (free tier) with PII-scrubbed events</td></tr>
+      <tr><td>API health</td><td>UptimeRobot ping per endpoint</td></tr>
+      <tr><td>LLM cost &amp; failures</td><td>Request log, retry budget, offline fallback path</td></tr>
+      <tr><td>Model drift</td><td>Re-run golden set weekly; alert on precision drop &gt; 5%</td></tr>
+      <tr><td>Backups</td><td>Daily DB dumps to object storage; retention 90 days</td></tr>
+      <tr><td>Data audit</td><td>Exportable audit log (who saw what, when) for school admins</td></tr>
+    </table>
+    <div class="callout"><strong>SIH-relevant point:</strong> demonstrating a monitoring + rollback plan shows production thinking judges reward — without adding complexity to the prototype itself.</div>
+  </section>
+
+</div>
+<div class="navbar">
+  <button class="nav-btn" id="prevBtn">← <span>Prev</span></button>
+  <button class="menu-btn" id="menuBtn">☰ Contents</button>
+  <span class="counter" id="counter">1 / 6</span>
+  <button class="nav-btn" id="nextBtn"><span>Next</span> →</button>
+</div>
+<div class="menu" id="menu">
+  <button class="close" id="closeBtn">✕ Close</button>
+  <h3>07 · Testing, Deployment &amp; Scaling</h3>
+  <div id="menuLinks"></div>
+</div>
+<script src="shared/deck.js"></script>
+</body>
+</html>

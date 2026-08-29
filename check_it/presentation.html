@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — Project Presentation</title>
+<style>
+  :root {
+    --bg: #0f172a; --bg-soft: #1e293b; --bg-card: #1a2438; --border: #334155;
+    --text: #e2e8f0; --text-dim: #94a3b8; --accent: #38bdf8; --accent-2: #818cf8;
+    --green: #4ade80; --yellow: #facc15; --red: #f87171; --orange: #fb923c; --purple: #c084fc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow: hidden; }
+  a { color: var(--accent); }
+
+  /* Deck */
+  .deck { position: relative; width: 100vw; height: 100vh; }
+  .slide { display: none; height: 100vh; padding: 56px 72px 92px; overflow-y: auto; }
+  .slide.active { display: block; animation: fadeIn .35s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  .progress { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); z-index: 60; transition: width .25s; }
+
+  /* Typography */
+  .kicker { color: var(--accent-2); text-transform: uppercase; letter-spacing: 2px; font-size: .75rem; font-weight: 700; margin-bottom: 8px; }
+  h1 { font-size: 2.6rem; line-height: 1.15; background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  h2 { font-size: 1.8rem; color: var(--accent); margin-bottom: 6px; }
+  h3 { font-size: 1.15rem; color: #cbd5e1; margin: 18px 0 8px; }
+  h4 { font-size: .95rem; color: var(--text-dim); margin: 14px 0 6px; }
+  p { margin: 8px 0; }
+  strong { color: #f1f5f9; }
+  .muted { color: var(--text-dim); font-size: .88rem; }
+  .big { font-size: 1.25rem; color: #f1f5f9; }
+  ul, ol { margin: 8px 0 8px 22px; }
+  li { margin: 4px 0; }
+
+  /* Layout helpers */
+  .grid { display: grid; gap: 16px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+  .center { text-align: center; }
+  .flex { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .mt { margin-top: 18px; }
+
+  /* Cards */
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  .card h4 { margin-top: 0; color: var(--accent); }
+  .card p, .card li { font-size: .92rem; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: .82rem; background: var(--bg-card); border-radius: 10px; overflow: hidden; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--bg-soft); color: var(--accent); font-weight: 600; white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { color: #cbd5e1; font-weight: 500; }
+
+  /* Pre / diagrams */
+  pre { background: #0b1220; border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; overflow-x: auto; font-size: .76rem; line-height: 1.5; font-family: "SFMono-Regular", Consolas, Menlo, monospace; color: #d7e3f4; margin: 10px 0; }
+  code { font-family: "SFMono-Regular", Consolas, Menlo, monospace; background: var(--bg-soft); padding: 1px 5px; border-radius: 4px; font-size: .82em; }
+
+  /* Badges */
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: .72rem; font-weight: 600; }
+  .b-green { background: rgba(74,222,128,.15); color: var(--green); }
+  .b-yellow { background: rgba(250,204,21,.15); color: var(--yellow); }
+  .b-red { background: rgba(248,113,113,.15); color: var(--red); }
+  .b-blue { background: rgba(56,189,248,.15); color: var(--accent); }
+  .b-purple { background: rgba(192,132,252,.15); color: var(--purple); }
+  .b-orange { background: rgba(251,146,60,.15); color: var(--orange); }
+
+  /* Callout */
+  .callout { border-left: 4px solid var(--accent); background: var(--bg-soft); padding: 12px 16px; border-radius: 0 10px 10px 0; margin: 14px 0; }
+  .callout.warn { border-left-color: var(--orange); }
+  .callout.ok { border-left-color: var(--green); }
+  .callout.danger { border-left-color: var(--red); }
+
+  /* KPI */
+  .kpi { text-align: center; padding: 14px 8px; }
+  .kpi .num { font-size: 1.7rem; font-weight: 700; color: var(--accent); }
+  .kpi .label { font-size: .78rem; color: var(--text-dim); margin-top: 2px; }
+
+  /* Nav bar */
+  .navbar { position: fixed; bottom: 0; left: 0; right: 0; height: 56px; background: rgba(15,23,42,.92); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 50; backdrop-filter: blur(6px); }
+  .nav-btn { background: var(--bg-soft); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; cursor: pointer; font-size: .85rem; font-weight: 600; transition: background .15s; }
+  .nav-btn:hover { background: var(--accent); color: #0f172a; }
+  .counter { color: var(--text-dim); font-size: .85rem; font-weight: 600; letter-spacing: 1px; }
+  .menu-btn { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: .85rem; text-decoration: underline; }
+
+  /* Menu overlay */
+  .menu { position: fixed; inset: 0; background: rgba(2,6,23,.94); z-index: 80; display: none; overflow-y: auto; padding: 40px; }
+  .menu.open { display: block; }
+  .menu h3 { color: var(--accent); margin-bottom: 16px; }
+  .menu a { display: block; color: var(--text); text-decoration: none; padding: 8px 12px; border-radius: 8px; font-size: .92rem; }
+  .menu a:hover { background: var(--bg-soft); color: var(--accent); }
+  .menu .close { position: fixed; top: 24px; right: 40px; background: none; border: 1px solid var(--border); color: var(--text); border-radius: 8px; padding: 8px 14px; cursor: pointer; }
+
+  /* Title slide */
+  .title-slide { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+  .title-slide .logo { font-size: 3.2rem; font-weight: 800; margin-bottom: 12px; }
+  .title-slide .tag { font-size: 1.3rem; color: var(--text-dim); font-style: italic; margin-bottom: 28px; }
+  .title-slide .meta { color: var(--text-dim); font-size: .85rem; }
+
+  /* Sources slide small text */
+  .small { font-size: .78rem; color: var(--text-dim); }
+
+  @media print {
+    body { overflow: visible; }
+    .slide { display: block !important; height: auto; page-break-after: always; padding: 24px; }
+    .navbar, .progress, .menu, .menu-btn { display: none !important; }
+    body, .slide { background: #fff; color: #111; }
+    .card, pre, table { background: #fff; border-color: #ccc; }
+    th { background: #eee; }
+    a { color: #0369a1; }
+  }
+  @media (max-width: 800px) {
+    .slide { padding: 32px 24px 90px; }
+    h1 { font-size: 1.9rem; }
+    h2 { font-size: 1.4rem; }
+    .nav-btn span { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 : TITLE -->
+  <section class="slide title-slide">
+    <div class="kicker">Smart India Hackathon · Smart Education</div>
+    <div class="logo">Shiksha Radar</div>
+    <div class="tag">"Find the learning gap before it becomes a learning failure."</div>
+    <p class="big">An AI-powered early learning-support &amp; learning-gap detection platform for Indian schools</p>
+    <p class="meta">Evidence-backed · Beginner-buildable · Explainable AI · Privacy-first · Prepared August 2026</p>
+    <p class="muted" style="margin-top:24px">Use <strong>→ / ←</strong> arrow keys or the buttons below to navigate.</p>
+  </section>
+
+  <!-- SLIDE 2 : AGENDA -->
+  <section class="slide">
+    <div class="kicker">Agenda</div>
+    <h2>What this presentation covers</h2>
+    <div class="grid g3 mt">
+      <div class="card"><h4>The Problem</h4><p>India's learning crisis · why marks alone fail · evidence (NIPUN Bharat, ASER, UDISE+, Saral, VSK, DIKSHA, NDEAR).</p></div>
+      <div class="card"><h4>The Innovation</h4><p>Mistake fingerprinting · what it is not · evidence-based intervention loop · explainable AI.</p></div>
+      <div class="card"><h4>The Build</h4><p>3-level architecture (MVP → SIH → production) · minimum sensible stack · deliberate exclusions · now vs future.</p></div>
+      <div class="card"><h4>AI &amp; Trust</h4><p>Where AI is used · prompt architecture · hallucination &amp; bias controls · concept mapping.</p></div>
+      <div class="card"><h4>Algorithms &amp; UI</h4><p>Mistake detection · confidence scoring · intervention engine · 4-screen dashboard · UX rules.</p></div>
+      <div class="card"><h4>Data &amp; Privacy</h4><p>Datasets &amp; synthetic data · database design · DPDP compliance · child-safety safeguards.</p></div>
+      <div class="card"><h4>Quality &amp; Scale</h4><p>Testing targets · edge cases · deployment &amp; cost · scaling · observability · offline/multilingual.</p></div>
+      <div class="card"><h4>SIH Readiness</h4><p>Judging-criteria scorecard · honest risks · 3-minute demo · judge Q&amp;A.</p></div>
+      <div class="card"><h4>Execution &amp; Method</h4><p>8–12 week roadmap · repository · first 7 days · procedure · sources.</p></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 3 : THE PROBLEM -->
+  <section class="slide">
+    <div class="kicker">The Problem</div>
+    <h2>India's learning crisis is real and quantified</h2>
+    <div class="grid g4 mt">
+      <div class="card kpi"><div class="num">52 cr</div><div class="label">children age 3–23; 17 cr outside formal education (NIPUN Bharat)</div></div>
+      <div class="card kpi"><div class="num">&gt;50%</div><div class="label">Grade 5 children can't read Grade 2 text (ASER 2024)</div></div>
+      <div class="card kpi"><div class="num">~85 lakh</div><div class="label">annual student dropouts (NDEAR/NCERT)</div></div>
+      <div class="card kpi"><div class="num">1B+</div><div class="label">assessments scanned by Saral — marks, not concepts</div></div>
+    </div>
+    <h3>Why marks alone are insufficient</h3>
+    <pre>Student A: 60% overall        Student B: 60% overall
+  Fractions → 8 errors            Fractions → 1 error
+    (denominator 5)                Algebra   → 5 errors (sign 3)
+  Algebra   → 1 error              Geometry  → 4 errors
+  Geometry  → 0 errors             (area/perimeter confusion)</pre>
+    <div class="callout"><strong>Teacher needs:</strong> "A needs denominator remediation; B needs sign rules + geometry." <strong>Dashboards show:</strong> "Both 60%. Both need help." The gap is <em>concept-level</em> intelligence.</div>
+  </section>
+
+  <!-- SLIDE 4 : EVIDENCE / RESEARCH -->
+  <section class="slide">
+    <div class="kicker">Research Findings</div>
+    <h2>The Indian education ecosystem — verified from official sources</h2>
+    <table>
+      <tr><th>System</th><th>What it does</th><th>Strength</th><th>Missing piece</th></tr>
+      <tr><td><strong>UDISE+</strong></td><td>School census</td><td>14.67 lakh schools · 24.72 cr students</td><td>No assessment/error data</td></tr>
+      <tr><td><strong>DIKSHA</strong></td><td>Content + quizzes</td><td>18 languages, question banks</td><td>Not diagnostic; scores only</td></tr>
+      <tr><td><strong>Saral</strong></td><td>OMR answer-sheet scanning</td><td>1B+ records scanned</td><td>Marks capture, no pattern analysis</td></tr>
+      <tr><td><strong>VSK (Gujarat)</strong></td><td>Governance dashboard</td><td>PM Award 2021; 1.15 cr students</td><td>Admin view, not teacher-facing</td></tr>
+      <tr><td><strong>NDEAR</strong></td><td>Architecture blueprint</td><td>Privacy-by-design, open building blocks</td><td>Framework, not an application</td></tr>
+    </table>
+    <div class="callout ok"><strong>Verified fact:</strong> NIPUN Bharat mandates "meaningful assessments" and "consistent tracking of learning levels" by Grade 3 by 2026–27 — yet no existing system converts answers into <strong>concept-level error patterns</strong> for the classroom teacher.</div>
+  </section>
+
+  <!-- SLIDE 5 : THE GAP -->
+  <section class="slide">
+    <div class="kicker">Competitor Analysis</div>
+    <h2>What exists — and the gap Shiksha Radar fills</h2>
+    <table>
+      <tr><th>Capability</th><th>Govt systems</th><th>Khan/Byju's/Mindspark</th><th>ASSISTments/DreamBox</th><th>Shiksha Radar</th></tr>
+      <tr><td>Marks dashboard</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td></tr>
+      <tr><td>Concept-level analysis</td><td class="center">✗</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td></tr>
+      <tr><td>Mistake fingerprinting</td><td class="center">✗</td><td class="center">✗</td><td class="center">Partial</td><td class="center"><strong>✓ core</strong></td></tr>
+      <tr><td>Recurring error detection</td><td class="center">✗</td><td class="center">Partial</td><td class="center">✓</td><td class="center"><strong>✓ core</strong></td></tr>
+      <tr><td>Evidence-based intervention</td><td class="center">✗</td><td class="center">✓</td><td class="center">✓</td><td class="center"><strong>✓ core</strong></td></tr>
+      <tr><td>Closed teacher feedback loop</td><td class="center">✗</td><td class="center">✗</td><td class="center">✓</td><td class="center"><strong>✓ core</strong></td></tr>
+      <tr><td>Explainable AI + privacy-first</td><td class="center">✗</td><td class="center">✗</td><td class="center">Partial</td><td class="center"><strong>✓ by design</strong></td></tr>
+    </table>
+    <div class="callout"><strong>Key differentiator:</strong> longitudinal, concept-granular, error-type-specific pattern detection with <strong>evidence trails + confidence scores + a detect→intervene→reassess loop</strong> — not offered by any existing Indian platform.</div>
+  </section>
+
+<!-- SLIDE 6 : USER PERSONAS -->
+  <section class="slide">
+    <div class="kicker">Who It Serves</div>
+    <h2>User personas — designed around real workflows</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h4>👩‍🏫 Priya — Grade 5 Teacher</h4>
+        <p>Govt school, 40 students, multi-grade. Pain: no time to analyze papers, doesn't know which concept to reteach.</p>
+        <p class="muted">Value: upload CSV → 30 sec → "Fractions: 12/40 struggling with denominators" → ready-to-print practice sheets.</p>
+      </div>
+      <div class="card">
+        <h4>🧑‍💼 Rajesh — Block Resource Person</h4>
+        <p>Supports 50 schools. Pain: needs systemic gaps for training planning.</p>
+        <p class="muted">Value: aggregate view — "denominator errors high in 35/50 schools → district workshop."</p>
+      </div>
+      <div class="card">
+        <h4>👧 Anita — Student (indirect)</h4>
+        <p>Grade 5. Pain: generic "do more practice" homework.</p>
+        <p class="muted">Value: targeted 5-question worksheet on her specific gap; sees progress next test.</p>
+      </div>
+      <div class="card">
+        <h4>🏫 Principal / Admin</h4>
+        <p>Reports to district on learning outcomes.</p>
+        <p class="muted">Value: auto-generated "Learning Gap Report" with evidence for SMC/SMDC meetings.</p>
+      </div>
+    </div>
+    <div class="callout"><strong>Principle:</strong> the system supports teachers, never replaces them. Every feature maps to a persona's real decision.</div>
+  </section>
+
+  <!-- SLIDE 7 : CORE INNOVATION -->
+  <section class="slide">
+    <div class="kicker">The Innovation</div>
+    <h2>Mistake Fingerprinting</h2>
+    <p class="big">Every student develops a pattern of errors across assessments. Shiksha Radar fingerprints that pattern — by concept and by error type — over time.</p>
+    <div class="grid g2 mt">
+      <div class="card">
+        <h4>Traditional view</h4>
+        <pre>"Student scored 60% on Fractions"</pre>
+      </div>
+      <div class="card">
+        <h4>Shiksha Radar view</h4>
+        <pre>"Fractions → 7 errors across 3 assessments (84% confidence)
+ ├─ Denominator handling: 5 (recurring, ↑ trend)
+ ├─ Simplification: 1 (isolated)
+ └─ Addition: 1 (careless)
+ → Equivalent fractions review + 5 targeted problems"</pre>
+      </div>
+    </div>
+    <h3>Why this is different</h3>
+    <ul>
+      <li><strong>Not</strong> a marks dashboard, attendance tracker, chatbot, or generic tutor.</li>
+      <li><strong>Not</strong> predicting "who will fail" — it reports <em>which concepts show repeated difficulty, the evidence, and what might help</em>.</li>
+      <li>Deterministic, auditable core + guarded LLM layer = <strong>explainable by design</strong>.</li>
+    </ul>
+  </section>
+
+    <!-- SLIDE 8 : NOT A DASHBOARD -->
+  <section class="slide">
+    <div class="kicker">What Makes It Different</div>
+    <h2>Not a dashboard, not a chatbot, not a predictor</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h4>It is NOT</h4>
+        <ul>
+          <li>A marks dashboard or attendance tracker</li>
+          <li>A generic AI tutor or chatbot</li>
+          <li>A "who will fail" prediction engine</li>
+          <li>A replacement for the teacher</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>It IS</h4>
+        <ul>
+          <li><strong>Concept-granular</strong> — which concept, which error type</li>
+          <li><strong>Longitudinal</strong> — patterns across assessments</li>
+          <li><strong>Evidence-cited</strong> — every claim shows counts + confidence</li>
+          <li><strong>Decision-supporting</strong> — the teacher stays in charge</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout ok"><strong>Core positioning:</strong> it reports <em>"which concepts show repeated difficulty, the evidence, and what might help"</em> — never "this child will fail."</div>
+  </section>
+<!-- SLIDE 9 : WORKFLOW -->
+  <section class="slide">
+    <div class="kicker">Product Workflow</div>
+    <h2>The end-to-end loop</h2>
+    <pre>Student assessments
+        ↓
+Answers + scores + assessment history
+        ↓
+Mistake analysis → Concept mapping → Repeated error detection
+        ↓
+Learning-pattern analysis → Student learning profile
+        ↓
+Teacher dashboard → Evidence-based intervention recommendation
+        ↓
+Targeted practice → Reassessment → Measure improvement</pre>
+    <div class="callout ok"><strong>The feedback loop is the product:</strong> Detect → Intervene → Reassess → Compare → "Gap closed" or "Persisted". Interventions only become active after <strong>teacher approval</strong>.</div>
+  </section>
+
+  <!-- SLIDE 10 : ARCHITECTURE -->
+  <section class="slide">
+    <div class="kicker">Technical Architecture</div>
+    <h2>Three levels — build in order, never skip ahead</h2>
+    <div class="grid g3 mt">
+      <div class="card">
+        <h4>Level 1 — MVP <span class="badge b-green">Weeks 1–4</span></h4>
+        <p>CSV upload → Pandas → mistake detection → concept heatmaps → <strong>Streamlit dashboard</strong>.</p>
+        <p class="muted">Python + Pandas + Streamlit + Plotly + MiniLM embeddings. No database.</p>
+      </div>
+      <div class="card">
+        <h4>Level 2 — SIH Prototype <span class="badge b-blue">Weeks 5–8</span></h4>
+        <p>Adds SQLite, multi-assessment tracking, student profiles, LLM explanations, intervention engine, PDF reports.</p>
+        <p class="muted">Persistence + AI + the closed feedback loop.</p>
+      </div>
+      <div class="card">
+        <h4>Level 3 — Production <span class="badge b-purple">Post-SIH</span></h4>
+        <p>FastAPI + PostgreSQL/TimescaleDB + auth + React PWA + offline-first + monitoring.</p>
+        <p class="muted">Scalable, secure, multilingual, deployable at district/state scale.</p>
+      </div>
+    </div>
+    <pre>MVP → validate with real teachers → SIH prototype → then design production. Never build Level 3 first.</pre>
+  </section>
+
+  <!-- SLIDE 11 : STACK -->
+  <section class="slide">
+    <div class="kicker">Technology Choices</div>
+    <h2>The minimum sensible stack — every tool earns its place</h2>
+    <table>
+      <tr><th>Tool</th><th>Level</th><th>Why it's needed</th><th>Minimal skill needed</th></tr>
+      <tr><td><strong>Python</strong></td><td>MVP</td><td>Language of the whole stack</td><td>Basic syntax, functions, dataclasses</td></tr>
+      <tr><td><strong>Pandas</strong></td><td>MVP</td><td>CSV loading, validation, aggregation</td><td>read/filter/groupby/apply</td></tr>
+      <tr><td><strong>Streamlit</strong></td><td>MVP</td><td>Zero-frontend-code dashboard for the demo</td><td>Layout, widgets, session_state</td></tr>
+      <tr><td><strong>Plotly</strong></td><td>MVP</td><td>Interactive heatmaps &amp; charts</td><td>Basic traces</td></tr>
+      <tr><td><strong>sentence-transformers</strong></td><td>MVP</td><td>Question→concept embeddings (MiniLM-L6-v2)</td><td>Call the model, cosine similarity</td></tr>
+      <tr><td><strong>scikit-learn</strong></td><td>MVP</td><td>Optional clustering / anomaly detection</td><td>Optional</td></tr>
+      <tr><td><strong>SQLite</strong></td><td>SIH</td><td>Multi-assessment persistence</td><td>CREATE/INSERT/SELECT + indexes</td></tr>
+      <tr><td><strong>LLM API</strong> (Groq/Gemini)</td><td>SIH</td><td>Teacher explanations, question generation, translation</td><td>Prompt template + JSON parsing</td></tr>
+      <tr><td><strong>FastAPI + PostgreSQL</strong></td><td>Production</td><td>Auth, multi-user, scale</td><td>Later — not needed for SIH</td></tr>
+    </table>
+    <div class="callout"><strong>Not used (deliberately):</strong> no Docker/K8s, no React, no heavy ML in the MVP — they'd slow a beginner down with zero demo value.</div>
+  </section>
+
+    <!-- SLIDE 12 : DELIBERATE EXCLUSIONS -->
+  <section class="slide">
+    <div class="kicker">Deliberate Exclusions</div>
+    <h2>What is NOT in the stack — and why</h2>
+    <div class="grid g2 mt">
+      <div class="card">
+        <h4>Excluded from MVP/SIH</h4>
+        <ul>
+          <li><strong>Docker / Kubernetes</strong> — no benefit at prototype scale; adds real complexity</li>
+          <li><strong>React / Node</strong> — Streamlit delivers the demo with zero frontend code</li>
+          <li><strong>Heavy ML / deep learning</strong> — deterministic rules + statistics are more auditable and sufficient</li>
+          <li><strong>PostgreSQL</strong> — SQLite covers prototype needs; upgrade only when scaling</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Rule: every technology must have a reason</h4>
+        <p>Each tool maps to a concrete job: <em>Pandas reads data, Streamlit shows it, embeddings map concepts, LLM explains, SQLite remembers.</em> No tool is included for its name.</p>
+        <p class="muted">This keeps the beginner buildable and the demo honest — "actually impressive because it works."</p>
+      </div>
+    </div>
+  </section>
+  <!-- SLIDE 13 : NOW VS FUTURE -->
+  <section class="slide">
+    <div class="kicker">Now vs Future</div>
+    <h2>What is needed now — and what is future infrastructure</h2>
+    <table>
+      <tr><th>Component</th><th>MVP</th><th>SIH Prototype</th><th>Production</th></tr>
+      <tr><td>Database</td><td>CSV</td><td>SQLite</td><td>PostgreSQL + TimescaleDB</td></tr>
+      <tr><td>Auth</td><td>None</td><td>Simple PIN</td><td>OAuth2/JWT + RBAC</td></tr>
+      <tr><td>Frontend</td><td>Streamlit</td><td>Streamlit</td><td>React PWA</td></tr>
+      <tr><td>API</td><td>None</td><td>None</td><td>FastAPI</td></tr>
+      <tr><td>LLM</td><td>Optional</td><td>Groq/Gemini API</td><td>Self-hosted + API</td></tr>
+      <tr><td>Deployment</td><td>Streamlit Cloud</td><td>Streamlit Cloud</td><td>Docker + K8s / Cloud Run</td></tr>
+      <tr><td>Offline</td><td>No</td><td>No</td><td>Service Worker + IndexedDB</td></tr>
+    </table>
+    <div class="callout"><strong>Deployment verdict:</strong> start on Streamlit Cloud (free). Migrate to FastAPI + Cloud Run only when you need auth, multi-user, or a mobile API.</div>
+  </section>
+
+  <!-- SLIDE 14 : AI ARCHITECTURE -->
+  <section class="slide">
+    <div class="kicker">AI Architecture</div>
+    <h2>Where AI is used — and where it is NOT</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h4>✓ Good uses (LLM gets structured evidence)</h4>
+        <ul>
+          <li>Explain detected patterns in plain language</li>
+          <li>Summarize class insights for teachers</li>
+          <li>Generate targeted practice questions</li>
+          <li>Suggest interventions</li>
+          <li>Translate explanations (Hindi, regional)</li>
+          <li>Map natural-language answers to concepts</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>✗ Bad uses (never)</h4>
+        <ul>
+          <li>Blindly deciding a child is "weak"</li>
+          <li>Making unsupported predictions</li>
+          <li>Replacing deterministic calculations</li>
+          <li>Storing sensitive student info in prompts</li>
+          <li>Generating unexplained risk scores</li>
+        </ul>
+      </div>
+    </div>
+    <pre>Structured evidence JSON → Prompt template → LLM → Teacher-friendly explanation
+Guardrails: no names · cite evidence · show confidence · "may benefit" not "will fail"
+Hallucination control: low temperature · validated output · template fallback on failure</pre>
+  </section>
+
+    <!-- SLIDE 15 : PROMPT ARCHITECTURE -->
+  <section class="slide">
+    <div class="kicker">LLM Layer</div>
+    <h2>Prompt architecture — evidence in, explanations out</h2>
+    <pre>[CONTEXT]
+  Student pseudonymized (Student_001), Grade 5, Mathematics
+  - Assessment window: 2026-03-01 → 2026-06-01
+  - Confidence of finding: 84% (7 errors / 8 responses over 3 assessments)
+[STRUCTURED FINDINGS — JSON]
+  {"concept": "fractions", "error_type": "denominator_handling",
+   "error_count": 7, "recurring": true, "trend": "increasing",
+   "confidence": 0.84, "evidence": [{"q": "Q12", "topic": "add_fractions", "error": "wrong_common_denominator"}]}
+[TASK]
+  Explain this finding to a teacher in 3 sentences. Plain language.
+  State the confidence. Suggest one concrete review activity.
+  Do NOT invent claims. If unsure, say "unclear".</pre>
+    <div class="callout warn"><strong>Guardrails:</strong> temperature ≤ 0.2 · structured JSON schema · evidence must cite question IDs · "unsure → say unclear" · nothing outside the provided JSON.</div>
+  </section>
+  <!-- SLIDE 16 : TRUST CONTROLS -->
+  <section class="slide">
+    <div class="kicker">Trust Controls</div>
+    <h2>Hallucination &amp; bias controls</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h4>Hallucination control</h4>
+        <ul>
+          <li>LLM sees only structured evidence — never raw PII</li>
+          <li>Strict output schema; rejected outputs are retried ≤ 2×</li>
+          <li>Every explanation displays a citation block + confidence</li>
+          <li>Rule-based layer unaffected if LLM is offline</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Bias &amp; fairness control</h4>
+        <ul>
+          <li>No ethnicity/income/locale features in detection</li>
+          <li>Thresholds uniform per concept, not per student</li>
+          <li>Equity drill-down compares support needs by class/cohort, never names</li>
+          <li>Language approved: "possible learning gap", "may benefit from additional support", "confidence: X%"</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout danger"><strong>Forbidden language:</strong> never "weak", "bad", "failing", "at risk", "hopeless". Findings are probabilistic hypotheses backed by evidence, reviewable by the teacher.</div>
+  </section>
+
+  <!-- SLIDE 17 : MISTAKE DETECTION -->
+  <section class="slide">
+    <div class="kicker">Mistake Detection</div>
+    <h2>A deterministic, evidence-first algorithm</h2>
+    <pre>Question → Expected answer → Student answer
+              ↓
+        Normalization (case, spaces, unicode, ±0.01 tolerance)
+              ↓
+        Comparison → correct / incorrect
+              ↓
+        Error category (rule-based, auditable)
+              ↓
+        Concept (rules → embeddings → teacher-review flag)</pre>
+    <h3>Error taxonomy</h3>
+    <div class="flex mt">
+      <span class="badge b-blue">Conceptual</span><span class="muted">misconception, wrong approach, formula selection</span><br>
+      <span class="badge b-orange">Procedural</span><span class="muted">denominator, sign error, simplification, decimal placement, units</span><br>
+      <span class="badge b-yellow">Calculation</span><span class="muted">arithmetic, multiplication/division facts</span><br>
+      <span class="badge b-purple">Careless</span><span class="muted">incomplete, misread, copy error</span><br>
+      <span class="badge b-red">Unknown</span><span class="muted">ambiguous, blank</span>
+    </div>
+    <div class="callout warn"><strong>Honest limit:</strong> one answer cannot reveal a child's psychology. Shiksha Radar only claims patterns <strong>observed across multiple assessments</strong>, with a confidence score.</div>
+  </section>
+
+ <!-- SLIDE 18 : FINGERPRINTING ENGINE -->
+  <section class="slide">
+    <div class="kicker">The Core Engine</div>
+    <h2>Mistake Fingerprinting — the algorithm</h2>
+    <pre>For every student, for every assessment:
+  analyze each answer → assign {concept, correctness, error_type}
+
+Aggregate over time:
+  • error frequency          (count + rate)
+  • recurrence               (assessments with errors)
+  • recent trend             (slope of error rate)
+  • concept coverage         (attempts per concept)
+  • confidence               (0–1)
+
+Confidence = min(0.95, Wilson_lower_bound(error_rate, n) × recency_weight)
+
+Gap detection thresholds:
+  total_errors ≥ 3  AND  assessments_with_errors ≥ 2  AND  confidence ≥ 0.70
+
+Output: LearningGap(student, concept, dominant_error, evidence, confidence, trend)</pre>
+    <h3>Advanced (research-grade, later)</h3>
+    <p class="muted">Bayesian Knowledge Tracing → Deep Knowledge Tracing (LSTM) → embedding error clustering → Item Response Theory → causal inference. <strong>Not needed for the MVP.</strong></p>
+  </section>
+<!-- SLIDE 19 : CONCEPT MAPPING -->
+  <section class="slide">
+    <div class="kicker">Concept Mapping</div>
+    <h2>Rules first, embeddings to generalize</h2>
+    <pre>Question
+  → Rule lookup (question_id → concept)      FOUND? → use it (100% for the question bank)
+  → Embedding similarity (≥ 0.65)            else semantic match
+  → Flag for teacher review                  else "unmapped question"</pre>
+    <div class="grid g2">
+      <div class="card">
+        <h4>Embeddings, simply</h4>
+        <p>Text → vector of numbers capturing meaning. Similar texts → similar vectors. Cosine similarity ≈ "how aligned."</p>
+        <p class="muted"><code>paraphrase-MiniLM-L6-v2</code> — 384-dim, 80MB, CPU-friendly, Apache 2.0. Multilingual variant covers Hindi/Telugu/Tamil/Bengali/Marathi.</p>
+      </div>
+      <div class="card">
+        <h4>Why rules win here</h4>
+        <p>Deterministic, auditable, zero compute for a curated question bank. Embeddings add flexibility for <em>unseen</em> questions. Hybrid = best of both.</p>
+      </div>
+    </div>
+  </section>
+
+ <!-- SLIDE 20 : INTERVENTION ENGINE -->
+  <section class="slide">
+    <div class="kicker">Intervention Engine</div>
+    <h2>From evidence to action — then prove it worked</h2>
+    <pre>Detected pattern: Fractions → denominator handling
+Evidence:         7 errors across 3 assessments
+Confidence:       0.84
+
+Suggested intervention:
+ 1. Review equivalent fractions (visual models)
+ 2. Practice common denominators (5 guided)
+ 3. Complete 5 targeted problems (generated worksheet)
+ 4. Reassess → compare pre/post → "Improved" / "Persisted"</pre>
+    <table>
+      <tr><th>Concept</th><th>Dominant error</th><th>Intervention shape</th></tr>
+      <tr><td>Fractions</td><td>denominator_handling</td><td>Equivalent fractions review → guided denominator practice → 5 problems</td></tr>
+      <tr><td>Algebra</td><td>sign_error</td><td>Integer rules review → 10 sign-focused problems</td></tr>
+      <tr><td>Geometry</td><td>area_perimeter_confusion</td><td>Visual contrast → 5 mixed labelled problems</td></tr>
+    </table>
+    <div class="callout ok"><strong>Outcome tracking:</strong> proportion z-test on pre vs post error rates → objective "did the intervention help?" — the demo's climax.</div>
+  </section>
+
+ <!-- SLIDE 21 : DASHBOARD -->
+  <section class="slide">
+    <div class="kicker">Teacher Dashboard</div>
+    <h2>Four screens, four decisions — no decorative charts</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h4>1 · Class Overview</h4>
+        <p>KPIs + concept difficulty bars + students needing support.</p>
+        <pre>Students: 42 · Assessments: 5 · Concepts: 12 · Need support: 8
+Fractions  ████████████████████ 38%</pre>
+        <p class="muted">Decision: whole-class reteach vs small groups.</p>
+      </div>
+      <div class="card">
+        <h4>2 · Student × Concept Heatmap</h4>
+        <p>🔴 high-confidence gap · 🟡 emerging · 🟢 on track.</p>
+        <pre>      Fractions  Algebra  Geometry
+S001    🔴         🟢        🟢
+S002    🟢         🔴        🟡</pre>
+        <p class="muted">Decision: who to group for pull-out.</p>
+      </div>
+      <div class="card">
+        <h4>3 · Student Profile</h4>
+        <p>Evidence, error breakdown, trend, confidence, recommended intervention, PDF export.</p>
+        <pre>FRACTIONS · DENOMINATOR  Confidence 84%
+7 errors · 3 assessments · ↗ increasing</pre>
+        <p class="muted">Decision: exactly what to reteach this child.</p>
+      </div>
+      <div class="card">
+        <h4>4 · Class Insights</h4>
+        <p>Common gaps (≥30%), widening-gap alerts, intervention tracking.</p>
+        <pre>Fractions 22% → 38% across assessments — WIDENING
+Active 8 · Completed 3 · Improved 2 · Persisted 1</pre>
+        <p class="muted">Decision: adjust pacing; plan training.</p>
+      </div>
+    </div>
+  </section>
+
+    <!-- SLIDE 22 : UX RULES -->
+  <section class="slide">
+    <div class="kicker">UX Rules</div>
+    <h2>The interaction rules behind the screens</h2>
+    <table>
+      <tr><th>Rule</th><th>Detail</th></tr>
+      <tr><td><strong>No data → guidance</strong></td><td>Empty states explain the next step ("Upload Term 1 CSVs to begin") instead of blank screens</td></tr>
+      <tr><td><strong>Evidence always visible</strong></td><td>Confidence badge + question IDs beside every finding; click → drill-down</td></tr>
+      <tr><td><strong>Fuzzy → explicit</strong></td><td>Drill-down offers "Exact match" and "Similar" views so teachers see how a concept was matched</td></tr>
+      <tr><td><strong>Approval gate</strong></td><td>Interventions are drafts until the teacher approves them</td></tr>
+      <tr><td><strong>Print/export</strong></td><td>Every view exports a clean report for SMC/SMDC or parent meetings</td></tr>
+    </table>
+    <div class="callout ok"><strong>Result:</strong> a teacher trusts the tool because they can always see <em>why</em> it says something — and can always overrule it.</div>
+  </section>
+
+  <!-- SLIDE 23 : DATABASE -->
+  <section class="slide">
+    <div class="kicker">Data Layer</div>
+    <h2>Database evolution — CSV → SQLite → PostgreSQL</h2>
+    <div class="grid g3">
+      <div class="card">
+        <h4>MVP — CSV</h4>
+        <p><code>students.csv</code> · <code>questions.csv</code> · <code>responses.csv</code> · <code>concept_map.csv</code></p>
+        <p class="muted">Good enough for 50 students; teaches data engineering.</p>
+      </div>
+      <div class="card">
+        <h4>SIH — SQLite</h4>
+        <p>Core tables: <code>students</code>, <code>assessments</code>, <code>questions</code>, <code>responses</code>, <code>concept_profiles</code>, <code>learning_gaps</code>, <code>interventions</code>, <code>intervention_outcomes</code>.</p>
+        <p class="muted">JSON columns for error breakdown, steps, plans. Indexes on student/concept/status.</p>
+      </div>
+      <div class="card">
+        <h4>Production — PostgreSQL</h4>
+        <p>TimescaleDB hypertable for responses; hash-partitioned profiles; plus users, roles, audit_log, consent_records.</p>
+        <p class="muted">For 50K+ students and longitudinal analytics.</p>
+      </div>
+    </div>
+    <div class="callout"><strong>Key design:</strong> raw <code>responses</code> is the source of truth; <code>concept_profiles</code> and <code>learning_gaps</code> are materialized analytics. Clean separation = auditable.</div>
+  </section>
+
+ <!-- SLIDE 24 : DATA & PRIVACY -->
+  <section class="slide">
+    <div class="kicker">Data &amp; Governance</div>
+    <h2>Datasets, synthetic data, and student privacy</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h4>Dataset reality</h4>
+        <p><strong>No public dataset</strong> has Indian school assessments with concept tags + error labels. UCI/Kaggle/ASSISTments are foreign or marks-only.</p>
+        <p class="muted">→ Solution: a programmatic <strong>synthetic dataset</strong> (NCERT Class 5 aligned, 50 students × 6 tests, 6 archetypes).</p>
+      </div>
+      <div class="card">
+        <h4>Student archetypes (demo-critical)</h4>
+        <ul>
+          <li><strong>A</strong> — Fractions difficulty</li>
+          <li><strong>B</strong> — Algebra difficulty</li>
+          <li><strong>C</strong> — Random mistakes</li>
+          <li><strong>D</strong> — Improving over time</li>
+          <li><strong>E</strong> — Persistent difficulties</li>
+          <li><strong>F</strong> — On track</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Privacy (DPDP Act 2023) — not an afterthought</h3>
+    <ul>
+      <li><strong>Pseudonymized IDs</strong> (Student_001) — no names, DOB, addresses, biometrics.</li>
+      <li><strong>No tracking / behavioural monitoring / ads</strong> for children (Section 9).</li>
+      <li><strong>Verifiable parental consent</strong> in production (Sec 9) · data minimization · purpose limitation · 2-year retention.</li>
+      <li><strong>Approved language only:</strong> "possible learning gap" · "may benefit from support" · "confidence: X%" — never "weak"/"will fail".</li>
+    </ul>
+  </section>
+
+ <!-- SLIDE 25 : TESTING -->
+  <section class="slide">
+    <div class="kicker">Testing</div>
+    <h2>Prove the system works — not just that it runs</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h4>Functional</h4>
+        <ul>
+          <li>CSV import edge cases (encoding, duplicates, malformed rows)</li>
+          <li>Scoring normalization (±0.01 tolerance)</li>
+          <li>Error classification per taxonomy category</li>
+          <li>Gap-detection threshold boundaries</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>AI evaluation</h4>
+        <ul>
+          <li>Concept mapping ≥90% on labeled set</li>
+          <li>Classification precision ≥85%</li>
+          <li>Confidence calibration: Brier &lt; 0.15</li>
+          <li>LLM hallucination rate &lt; 2%; consistency on repeat runs</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout"><strong>Ground truth:</strong> a golden set of ~200 human-labeled records (questions → concepts; answers → error types; histories → gap yes/no) powers regression tests and threshold tuning.</div>
+  </section>
+
+  <!-- SLIDE 26 : EDGE CASES -->
+  <section class="slide">
+    <div class="kicker">Edge Cases</div>
+    <h2>Tested edge cases — because the demo will hit them</h2>
+    <div class="grid g2 mt">
+      <div class="card"><h4>Data edge cases</h4>
+        <ul>
+          <li>Duplicate student IDs</li>
+          <li>Empty / all-correct / all-wrong answer files</li>
+          <li>Question ID not in bank</li>
+          <li>Non-standard answer strings</li>
+          <li>Concept mismatch (embedding low confidence)</li>
+        </ul>
+      </div>
+      <div class="card"><h4>Behavior edge cases</h4>
+        <ul>
+          <li>Single assessment (fewer than 2 → "initial indication")</li>
+          <li>Errors below threshold → shown but not flagged</li>
+          <li>LLM down / offline → rule-based flow still works</li>
+          <li>Teacher approves then rejects intervention → clean states</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout warn"><strong>Honesty rule:</strong> every edge case has a defined output; "insufficient data" is a first-class result, never a crash or a guess.</div>
+  </section>
+
+  <!-- SLIDE 27 : DEPLOYMENT & SCALING -->
+  <section class="slide">
+    <div class="kicker">Deployment &amp; Scalability</div>
+    <h2>From $0 MVP to district scale — deliberately</h2>
+    <table>
+      <tr><th>Scale</th><th>Students</th><th>Responses/yr</th><th>Bottleneck</th><th>Solution</th><th>Monthly cost</th></tr>
+      <tr><td>MVP</td><td>50</td><td>6K</td><td>None</td><td>Streamlit Cloud (free)</td><td><strong>$0</strong></td></tr>
+      <tr><td>School</td><td>500</td><td>100K</td><td>Pandas memory</td><td>Chunked processing</td><td><strong>$5</strong></td></tr>
+      <tr><td>Cluster</td><td>5K</td><td>1M</td><td>Single-node</td><td>Celery + Redis queue</td><td><strong>$90</strong></td></tr>
+      <tr><td>District</td><td>50K</td><td>12M</td><td>DB writes</td><td>TimescaleDB + materialized views</td><td><strong>$700</strong></td></tr>
+      <tr><td>State</td><td>500K</td><td>120M</td><td>Inference latency</td><td>Batch embeddings + caching + async LLM</td><td>Custom</td></tr>
+    </table>
+    <div class="grid g2 mt">
+      <div class="card">
+        <h4>Deployment path</h4>
+        <p><strong>Now:</strong> GitHub → Streamlit Community Cloud → public URL. Secrets via <code>.streamlit/secrets.toml</code>, keys never committed.</p>
+        <p class="muted"><strong>Later:</strong> FastAPI + Cloud Run / K3s, PostgreSQL, React PWA, Prometheus/Grafana, Sentry.</p>
+      </div>
+      <div class="card">
+        <h4>Offline &amp; multilingual (phased)</h4>
+        <p><strong>Offline-first (Phase 2):</strong> local CSV + rules + cached embeddings + template interventions; Service Worker + IndexedDB + background sync. LLM only when online.</p>
+        <p><strong>Multilingual:</strong> English + Hindi now (Gemini 1.5 Flash natively supports 35+ Indian languages); Telugu/Tamil/Bengali/Marathi planned — claimed only where models actually support them.</p>
+      </div>
+    </div>
+  </section>
+
+    <!-- SLIDE 28 : OPERATIONS -->
+  <section class="slide">
+    <div class="kicker">Operations</div>
+    <h2>Observability &amp; maintenance plan</h2>
+    <table>
+      <tr><th>Concern</th><th>Tool / practice</th></tr>
+      <tr><td>App errors</td><td>Sentry (free tier) with PII-scrubbed events</td></tr>
+      <tr><td>API health</td><td>UptimeRobot ping per endpoint</td></tr>
+      <tr><td>LLM cost &amp; failures</td><td>Request log, retry budget, offline fallback path</td></tr>
+      <tr><td>Model drift</td><td>Re-run golden set weekly; alert on precision drop &gt; 5%</td></tr>
+      <tr><td>Backups</td><td>Daily DB dumps to object storage; retention 90 days</td></tr>
+      <tr><td>Data audit</td><td>Exportable audit log (who saw what, when) for school admins</td></tr>
+    </table>
+    <div class="callout"><strong>SIH-relevant point:</strong> demonstrating a monitoring + rollback plan shows production thinking judges reward — without adding complexity to the prototype itself.</div>
+  </section>
+
+  <!-- SLIDE 29 : OFFLINE & MULTILINGUAL -->
+  <section class="slide">
+    <div class="kicker">Reaching Rural Schools</div>
+    <h2>Offline-first and multilingual — phased, not assumed</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h4>Offline / low-bandwidth strategy</h4>
+        <table>
+          <tr><th>Feature</th><th>Offline?</th></tr>
+          <tr><td>CSV upload + analysis</td><td class="center">✅ full</td></tr>
+          <tr><td>Dashboard view</td><td class="center">✅ cached</td></tr>
+          <tr><td>Rule-based mapping/classification</td><td class="center">✅ full</td></tr>
+          <tr><td>Embedding concept mapping</td><td class="center">⚠️ cached model</td></tr>
+          <tr><td>LLM explanations</td><td class="center">❌ queued</td></tr>
+          <tr><td>Template practice sheets</td><td class="center">✅ full</td></tr>
+          <tr><td>Reassessment upload</td><td class="center">✅ local → sync</td></tr>
+        </table>
+        <p class="muted">Architecture: Service Worker caches app + quantized embedding model (~20MB) + question bank; IndexedDB holds local data; Background Sync flushes uploads/LLM jobs when online.</p>
+      </div>
+      <div class="card">
+        <h4>Multilingual support</h4>
+        <table>
+          <tr><th>Language</th><th>UI</th><th>LLM explain</th><th>Status</th></tr>
+          <tr><td>English</td><td class="center">✅</td><td class="center">✅</td><td>Ready</td></tr>
+          <tr><td>Hindi</td><td class="center">✅</td><td class="center">✅</td><td>Ready</td></tr>
+          <tr><td>Telugu · Tamil · Bengali · Marathi</td><td class="center">✅</td><td class="center">✅</td><td>Planned (verified per model support)</td></tr>
+        </table>
+        <p class="muted">Approach: locale JSON (i18n toggle) · prompt in English → output in target language · multilingual MiniLM-L12 for embeddings · per-question translations keyed by question_id.</p>
+        <div class="callout warn"><strong>No over-claiming:</strong> support is only claimed for languages the chosen model/API demonstrably handles.</div>
+      </div>
+    </div>
+    <div class="callout"><strong>Phase decision:</strong> offline-first ships as <strong>Phase 2 (post-SIH)</strong>. For the demo, assume block-level internet; document the offline architecture in the proposal.</div>
+  </section>
+
+ <!-- SLIDE 30 : ROADMAP -->
+  <section class="slide">
+    <div class="kicker">Execution</div>
+    <h2>8–12 week roadmap — learn while building</h2>
+    <table>
+      <tr><th>Week</th><th>Learn</th><th>Build</th><th>Working deliverable</th></tr>
+      <tr><td><strong>1</strong></td><td>Python structure, Git, Pandas basics</td><td>Repo, synthetic data generator, CSV loader</td><td>3 CSVs + summary stats</td></tr>
+      <tr><td><strong>2</strong></td><td>Pandas advanced, normalization, taxonomy</td><td>Answer normalizer + rule-based classifier</td><td>Per-student error breakdown</td></tr>
+      <tr><td><strong>3</strong></td><td>Aggregation, Wilson confidence, trends</td><td>Concept profiles + gap detector</td><td>JSON profiles + gaps</td></tr>
+      <tr><td><strong>4</strong></td><td>Streamlit + Plotly</td><td>4-page dashboard</td><td>Interactive heatmaps + profiles</td></tr>
+      <tr><td><strong>5</strong></td><td>SQLite + schema design</td><td>Multi-assessment persistence</td><td>Accumulating profiles</td></tr>
+      <tr><td><strong>6</strong></td><td>LLM APIs + prompt engineering</td><td>Explanation layer + validators</td><td>"Explain" with cited evidence</td></tr>
+      <tr><td><strong>7</strong></td><td>Interventions + PDF generation</td><td>Intervention engine + worksheets</td><td>Generated worksheet + plan</td></tr>
+      <tr><td><strong>8</strong></td><td>Integration + demo polish</td><td>Full workflow + loop closure</td><td><strong>SIH demo ready</strong></td></tr>
+      <tr><td><strong>9–10</strong></td><td>Embeddings, i18n, deployment</td><td>Embedding fallback, Hindi UI, deploy</td><td>Public URL + submission</td></tr>
+    </table>
+    <div class="callout ok"><strong>Rule:</strong> learn exactly what you need → build a small feature → understand it → continue. Never "master everything first."</div>
+  </section>
+
+ <!-- SLIDE 31 : REPO STRUCTURE -->
+  <section class="slide">
+    <div class="kicker">Engineering Practice</div>
+    <h2>A professional repository — taught gradually</h2>
+    <pre>shiksha-radar/
+├── app/
+│   ├── config.py            # settings, model names
+│   ├── data/                # loader, validator, normalizer, synthetic
+│   ├── analytics/           # classifier, concept_mapper, profiler, confidence, intervention
+│   ├── ai/                  # llm_client, prompts, embeddings
+│   ├── db/                  # models, repository, migrations
+│   ├── ui/pages/            # 1_Overview, 2_Heatmap, 3_Student_Profile, 4_Class_Insights
+│   └── utils/               # export, i18n, logging
+├── data/                    # synthetic/ , golden_set/ , schemas/
+├── tests/                   # unit/ , integration/ , ai_eval/
+├── scripts/                 # generate_synthetic, evaluate_golden_set, calibrate_confidence
+├── docs/                    # architecture, deployment, privacy, sih_submission, demo_script
+├── .streamlit/              # config.toml, secrets.toml.example
+├── .github/workflows/       # ci.yml, deploy.yml
+├── requirements.txt · README.md · LICENSE · .gitignore · .env.example · Dockerfile</pre>
+    <ul>
+      <li><strong>Git + GitHub</strong>: branches, meaningful commits, issues, README, <code>.gitignore</code>, env vars.</li>
+      <li><strong>Testing</strong>: pytest from Week 2 — golden set + property tests.</li>
+      <li><strong>Docs</strong>: architecture, API, deployment, privacy, demo script.</li>
+    </ul>
+  </section>
+
+ <!-- SLIDE 32 : SIH EVALUATION -->
+  <section class="slide">
+    <div class="kicker">SIH Readiness</div>
+    <h2>Honest judging-criteria scorecard</h2>
+    <table>
+      <tr><th>Criterion</th><th>Score</th><th>Evidence</th></tr>
+      <tr><td>Innovation</td><td><span class="badge b-blue">8.5/10</span></td><td>Mistake fingerprinting + intervention loop is novel in the Indian context</td></tr>
+      <tr><td>Problem relevance</td><td><span class="badge b-green">9.5/10</span></td><td>NIPUN Bharat FLN mission; ASER-validated teacher pain</td></tr>
+      <tr><td>Technical feasibility</td><td><span class="badge b-green">9/10</span></td><td>Beginner builds the MVP in 4 weeks</td></tr>
+      <tr><td>Scalability</td><td><span class="badge b-blue">8/10</span></td><td>50 → 50K path documented; NDEAR-aligned</td></tr>
+      <tr><td>Social impact</td><td><span class="badge b-green">9/10</span></td><td>Govt schools, privacy-first, multilingual</td></tr>
+      <tr><td>User experience</td><td><span class="badge b-blue">8/10</span></td><td>30-sec upload → actionable insight; Hindi UI</td></tr>
+    </table>
+    <h3>Biggest risks (be critical)</h3>
+    <div class="flex">
+      <span class="badge b-red">No real school pilot</span>
+      <span class="badge b-yellow">"Just a dashboard"</span>
+      <span class="badge b-yellow">Intervention not RCT-proven</span>
+    </div>
+    <p class="muted">Mitigations: 2-week pilot with 1 govt school, teacher testimonial video, Saral-import demo, open-source commitment.</p>
+  </section>
+
+    <!-- SLIDE 33 : RISKS & MITIGATIONS -->
+  <section class="slide">
+    <div class="kicker">Risks &amp; Mitigations</div>
+    <h2>Honest risks — and the plan for each</h2>
+    <div class="grid g2">
+      <div class="card"><h4>Technical risks</h4>
+        <ul>
+          <li><strong>LLM hallucination</strong> → evidence-only prompts, strict schemas, deterministic core</li>
+          <li><strong>Weak embedding matches</strong> → 0.65 threshold + review queue</li>
+          <li><strong>Data quality</strong> → schema validation + normalization + edge-case tests</li>
+        </ul>
+      </div>
+      <div class="card"><h4>Project risks</h4>
+        <ul>
+          <li><strong>Scope creep</strong> → levels gated; Level 3 explicitly out of scope</li>
+          <li><strong>Over-claiming</strong> → every claim labeled verified/assumed/unknown</li>
+          <li><strong>Team on-ramp</strong> → first-7-days plan with bite-sized tasks</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout"><strong>Demo risk:</strong> demo uses synthetic data — we say so. Real deployment needs DPDP-compliant data; this is presented as the honest next step, not hidden.</div>
+  </section>
+
+  <!-- SLIDE 34 : DEMO + FUTURE -->
+  <section class="slide">
+    <div class="kicker">Demo &amp; Future</div>
+    <h2>The 3-minute story — and the research trajectory</h2>
+    <table>
+      <tr><th>Scene</th><th>Time</th><th>Action</th></tr>
+      <tr><td>Problem</td><td>0:00</td><td>Marks register: 40 students, all 55–65%</td></tr>
+      <tr><td>Upload</td><td>0:30</td><td>CSV → processing → dashboard in 2 sec</td></tr>
+      <tr><td>Detection</td><td>0:50</td><td>Fractions 38% — class-wide issue</td></tr>
+      <tr><td>Drill-down</td><td>1:20</td><td>Student_001: denominator, 84% confidence</td></tr>
+      <tr><td>Intervention</td><td>1:50</td><td>Worksheet PDF downloads</td></tr>
+      <tr><td>Reassess</td><td>2:20</td><td>Gap "Improved" — loop closed</td></tr>
+      <tr><td>Impact</td><td>2:45</td><td>Fractions 38%→22%; privacy badge; scale story</td></tr>
+    </table>
+    <div class="grid g2 mt">
+      <div class="card">
+        <h4>Research path</h4>
+        <p>SIH prototype → 5–10 school pilot → EDM/LAK/AIED publication → open research platform (BKT/DKT/IRT plugins) → state FLN policy integration.</p>
+      </div>
+      <div class="card">
+        <h4>Open research questions</h4>
+        <p>Frequency vs accuracy of fingerprinting · best intervention types per error pattern · teacher trust vs transparency · cold-start concept mapping in low-resource languages.</p>
+      </div>
+    </div>
+  </section>
+
+    <!-- SLIDE 35 : JUDGE Q&A -->
+  <section class="slide">
+    <div class="kicker">Judge Q&amp;A</div>
+    <h2>Likely judge questions — prepared answers</h2>
+    <table>
+      <tr><th>Question</th><th>Answer</th></tr>
+      <tr><td>Where is the real data?</td><td>Synthetic, with known ground truth — deliberate for development; real usage follows DPDP consent</td></tr>
+      <tr><td>Why not use an LLM for everything?</td><td>Deterministic core is auditable and works offline; LLM explains but never decides</td></tr>
+      <tr><td>How is this different from Saral/VSK?</td><td>They capture marks and admin views; we analyze error patterns per concept over time</td></tr>
+      <tr><td>What about teacher resistance?</td><td>We save the teacher time (30 sec → insights) and keep them in control (approval gates)</td></tr>
+      <tr><td>Can it generalize to other states/languages?</td><td>Embedding mapping + i18n keys + multilingual models; honest about language support</td></tr>
+      <tr><td>What does success look like in a pilot?</td><td>FLN attainment improvement with measurable before/after evidence per concept</td></tr>
+    </table>
+  </section>
+
+  <!-- SLIDE 36 : FIRST 7 DAYS -->
+  <section class="slide">
+    <div class="kicker">Start Now</div>
+    <h2>First 7 days — a concrete beginner-safe plan</h2>
+    <table>
+      <tr><th>Day</th><th>Hours</th><th>Task</th><th>Commit message</th></tr>
+      <tr><td><strong>1</strong></td><td>2–3</td><td>Python 3.11+, Git, VS Code; init repo; venv; install pandas/streamlit/plotly; folder structure; README</td><td><code>chore: init repo with structure</code></td></tr>
+      <tr><td><strong>2</strong></td><td>2–3</td><td>Synthetic data generator (6 archetypes); produce 4 CSVs; verify row counts</td><td><code>feat: synthetic data generator</code></td></tr>
+      <tr><td><strong>3</strong></td><td>2–3</td><td>CSV loader + schema validation + answer normalizer; test all files</td><td><code>feat: data loading & validation</code></td></tr>
+      <tr><td><strong>4</strong></td><td>3–4</td><td>Error taxonomy + rule-based classifier; 20 golden tests; pytest</td><td><code>feat: rule-based error classifier</code></td></tr>
+      <tr><td><strong>5</strong></td><td>3–4</td><td>Concept mapper; ConceptProfile + LearningGap detectors; Wilson confidence + trend</td><td><code>feat: profiling & gap detection</code></td></tr>
+      <tr><td><strong>6</strong></td><td>3–4</td><td>Streamlit dashboard — Overview, Heatmap, Profile, Insights; sidebar upload</td><td><code>feat: Streamlit dashboard (4 views)</code></td></tr>
+      <tr><td><strong>7</strong></td><td>2–3</td><td>Pin requirements; architecture + demo-script docs; screen capture; push to GitHub</td><td><code>chore: docs, requirements, demo ready</code></td></tr>
+    </table>
+    <div class="callout ok">
+      <strong>Week 1 success criteria:</strong> working pipeline (CSV → error classification → profiles → gaps) · interactive dashboard (upload → heatmap → drill-down with evidence + confidence) · clean, tested, version-controlled codebase · ready for SQLite (Week 5) and LLM (Week 6).
+    </div>
+  </section>
+
+    <!-- SLIDE 37 : SOURCES -->
+  <section class="slide">
+    <div class="kicker">Sources</div>
+    <h2>Primary sources consulted</h2>
+    <table>
+      <tr><th>Source</th><th>Used for</th></tr>
+      <tr><td>Ministry of Education — NIPUN Bharat Guidelines (Jul 2021)</td><td>FLN target, "meaningful assessments", tracking by Grade 3 by 2026–27</td></tr>
+      <tr><td>UDISE+ 2022–23 report (education.gov.in)</td><td>School/student/teacher counts</td></tr>
+      <tr><td>DIKSHA documentation (diksha.gov.in)</td><td>Content, language coverage, NDEAR blocks</td></tr>
+      <tr><td>Saral documentation (saral.in)</td><td>OMR scanning scale, marks-only capture</td></tr>
+      <tr><td>VSK Gujarat (2021, World Bank case study)</td><td>Governance dashboard strengths/limits</td></tr>
+      <tr><td>NDEAR architecture (ndear.gov.in)</td><td>Privacy-by-design principles, building blocks</td></tr>
+      <tr><td>ASER 2024 (asercentre.org)</td><td>Grade-level learning outcome statistics</td></tr>
+      <tr><td>DPDP Act 2023 (meity.gov.in)</td><td>Sections 4, 6, 8, 9, 10, 17, 24 compliance mapping</td></tr>
+      <tr><td>SIH Evaluation Guidelines (siceval.mic.gov.in)</td><td>Judging criteria (percentages verified where available)</td></tr>
+    </table>
+    <p class="small">Full citation list and verification notes live in <a href="../shiksha-radar-plan.md">shiksha-radar-plan.md</a> and <a href="../index.html">index.html</a>.</p>
+  </section>
+
+  <!-- SLIDE 38 : METHODOLOGY & SOURCES -->
+  <section class="slide">
+    <div class="kicker">How this plan was made</div>
+    <h2>The procedure behind the project plan</h2>
+    <h3>Step 1 — Research first (no invention from memory)</h3>
+    <ol>
+      <li><strong>Scoped 6 research domains:</strong> Indian education ecosystem · existing systems · SIH requirements · academic research · datasets · privacy law.</li>
+      <li><strong>Used official/primary sources:</strong> sih.gov.in, pib.gov.in, udiseplus.gov.in, ndear.gov.in, diksha.gov.in, indiacode.nic.in (DPDP Act), asercentre.org.</li>
+      <li><strong>Labeled evidence:</strong> every claim marked <em>verified fact / strong inference / flagged assumption</em> — SIH rules were not invented; gaps were explicitly stated.</li>
+    </ol>
+    <h3>Step 2 — Gap analysis</h3>
+    <p>Compared existing systems on a capability matrix → isolated the genuine gap: <strong>longitudinal concept-level error-pattern intelligence for teachers</strong>.</p>
+    <h3>Step 3 — Design for a beginner</h3>
+    <ol start="4">
+      <li>Split architecture into <strong>3 scopes</strong> (MVP → SIH → production) so only buildable things are attempted.</li>
+      <li>Chose the <strong>minimum sensible stack</strong>; justified every tool; deferred Docker/K8s/React/ML to post-SIH.</li>
+      <li>Designed deterministic algorithms (mistake fingerprinting, Wilson confidence, intervention loop) before any LLM — AI is the explanation layer, not the decision maker.</li>
+      <li>Built the <strong>learn-while-building roadmap</strong> (weeks 1–10) and a concrete first-7-days plan.</li>
+    </ol>
+    <h3>Sources consulted (selection)</h3>
+    <p class="small">NIPUN Bharat (MoE) · UDISE+ (MoE) · DIKSHA (NCERT) · NDEAR (MoE) · Saral · Vidya Samiksha Kendra (NITI For States) · ASER 2024 (Pratham) · SIH 2024–25 problem statements &amp; evaluation guidelines (sih.gov.in / siceval.mic.gov.in) · DPDP Act 2023 (India Code) · UCI / ASSISTments / KDD Cup 2010 / GSM8K / HuggingFace datasets · Springer / IEEE / MDPI / ERIC (learning analytics, knowledge tracing, misconception analysis).</p>
+    <div class="callout ok"><strong>Bottom line:</strong> every architectural choice in this project has a reason, a source, and a buildable first step. Start with the synthetic-data generator on Day 1.</div>
+  </section>
+
+</div>
+
+<!-- Navigation bar -->
+<div class="navbar">
+  <button class="nav-btn" id="prevBtn">← <span>Prev</span></button>
+  <button class="menu-btn" id="menuBtn">☰ Contents</button>
+  <span class="counter" id="counter">1 / 24</span>
+  <button class="nav-btn" id="nextBtn"><span>Next</span> →</button>
+</div>
+
+<!-- Contents overlay -->
+<div class="menu" id="menu">
+  <button class="close" id="closeBtn">✕ Close</button>
+  <h3>Shiksha Radar — Presentation Contents</h3>
+  <div id="menuLinks"></div>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  const menu = document.getElementById('menu');
+  const menuLinks = document.getElementById('menuLinks');
+  let current = 0;
+
+  // Build menu links
+  slides.forEach((s, i) => {
+    const kick = s.querySelector('.kicker');
+    const h = s.querySelector('h1, h2');
+    const label = (kick ? kick.textContent + ' — ' : '') + (h ? h.textContent : ('Slide ' + (i + 1)));
+    const a = document.createElement('a');
+    a.href = '#';
+    a.textContent = (i + 1) + '. ' + label;
+    a.addEventListener('click', e => { e.preventDefault(); show(i); closeMenu(); });
+    menuLinks.appendChild(a);
+  });
+
+  function show(i) {
+    current = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === current));
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+    progress.style.width = ((current + 1) / slides.length * 100) + '%';
+    document.querySelector('.deck').scrollTop = 0;
+    slides[current].scrollTop = 0;
+  }
+
+  function next() { show(current + 1); }
+  function prev() { show(current - 1); }
+  function openMenu() { menu.classList.add('open'); }
+  function closeMenu() { menu.classList.remove('open'); }
+
+  document.getElementById('nextBtn').addEventListener('click', next);
+  document.getElementById('prevBtn').addEventListener('click', prev);
+  document.getElementById('menuBtn').addEventListener('click', openMenu);
+  document.getElementById('closeBtn').addEventListener('click', closeMenu);
+  menu.addEventListener('click', e => { if (e.target === menu) closeMenu(); });
+
+  document.addEventListener('keydown', e => {
+    if (menu.classList.contains('open')) { if (e.key === 'Escape') closeMenu(); return; }
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+    else if (e.key === 'Home') { show(0); }
+    else if (e.key === 'End') { show(slides.length - 1); }
+  });
+
+  let touchX = 0;
+  document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 60) { dx < 0 ? next() : prev(); }
+  });
+
+  show(0);
+</script>
+</body>
+</html>

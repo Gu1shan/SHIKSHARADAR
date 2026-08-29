@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — 05 Algorithms &amp; Dashboard</title>
+<link rel="stylesheet" href="shared/deck.css">
+</head>
+<body>
+<a class="home-link" href="index.html">← Hub</a>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <section class="slide title-slide">
+    <div class="kicker">Shiksha Radar · Presentation 05</div>
+    <div class="logo">Algorithms &amp; Dashboard</div>
+    <div class="tag">"Find the learning gap before it becomes a learning failure."</div>
+    <p class="big">Deterministic detection, confidence scoring, and the 4-screen dashboard</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Detection Pipeline</div>
+    <h2>Mistake detection — a deterministic, evidence-first algorithm</h2>
+    <pre>1. Validate & normalize      → clean answers, structure checks
+2. Extract concepts          → explicit metadata OR embedding mapping
+3. Extract error types       → rule-based taxonomy (20 types)
+   e.g. wrong_common_denominator, sign_error, area_perimeter_confusion
+4. Compute repeated errors   → same error across ≥2 assessments
+5. Confidence scoring        → Wilson lower bound × recency weight
+6. Flag learning gaps        → total_errors ≥ 3 AND assessments ≥ 2
+                             AND confidence ≥ 0.70
+7. Preserve uncertainty      → low evidence → "Insufficient data", never a guess</pre>
+    <div class="callout ok"><strong>Why deterministic:</strong> identical input always yields identical output. Teachers and judges can trace every decision to its evidence — that is what makes the AI trustworthy.</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Confidence Scoring</div>
+    <h2>The fingerprinting algorithm in detail</h2>
+    <pre>conf = min(0.95,
+            wilson_lower_bound(error_rate, n) * 1.2 * recency_weight)
+
+  error_rate      = error_count / responses_for_concept
+  n               = number of responses observed
+  recency_weight  = 1.0 for assessments within 6 weeks,
+                    0.85 within 12 weeks, else 0.70
+
+Gap flags (recurring):
+  total_errors        ≥ 3
+  assessments_flagged ≥ 2
+  confidence          ≥ 0.70</pre>
+    <p class="muted">Wilson lower bound is the conservative edge of the observed error rate — honest under small samples; the ceiling 0.95 prevents false certainty.</p>
+    <div class="callout warn"><strong>Boundaries:</strong> single-assessment findings are reported as <em>"initial indication — reassess"</em>, never as a confirmed gap.</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Intervention Engine</div>
+    <h2>From evidence to action — then prove it worked</h2>
+    <div class="grid g2 mt">
+      <div class="card">
+        <h4>1 · Choose intervention</h4>
+        <p>Teacher selects from recommendations by gap type (e.g. denominator handling → equivalent-fractions mini-lesson + 5 targeted problems).</p>
+      </div>
+      <div class="card">
+        <h4>2 · Create &amp; assign</h4>
+        <p>LLM drafts the worksheet (evidence-constrained); teacher reviews, edits, assigns. Nothing ships without teacher approval.</p>
+      </div>
+      <div class="card">
+        <h4>3 · Reassess &amp; compare</h4>
+        <pre>improved  → post_rate &lt; 0.20 AND p &lt; 0.05
+worsened  → post_rate ≥ pre_rate
+persisted → otherwise</pre>
+      </div>
+      <div class="card">
+        <h4>4 · Close or iterate</h4>
+        <p>"Gap closed" is recorded with before/after evidence. If persisted, teacher adjusts the approach — never blames the student.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Dashboard</div>
+    <h2>Four screens, four decisions — no decorative charts</h2>
+    <div class="grid g4 mt">
+      <div class="card"><h4>1 · Overview</h4><p>RAG status + KPI chips: high-frequency gaps, confidence trend.</p><p class="muted"><strong>Decision:</strong> what needs attention this week?</p></div>
+      <div class="card"><h4>2 · Heatmap</h4><p>Class × concept error density; toggles to gap confidence.</p><p class="muted"><strong>Decision:</strong> which concepts for the whole class?</p></div>
+      <div class="card"><h4>3 · Student Profile</h4><p>Timeline, concept radar, error-type table, every row cites evidence.</p><p class="muted"><strong>Decision:</strong> what does this student need?</p></div>
+      <div class="card"><h4>4 · Insights</h4><p>LLM explanation + cite; school/class/cohort drill-down.</p><p class="muted"><strong>Decision:</strong> what intervention, with what confidence?</p></div>
+    </div>
+    <div class="callout"><strong>Design principle:</strong> every screen answers one question with one obvious action. Charts support decisions; they never decorate them.</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">UX Rules</div>
+    <h2>The interaction rules behind the screens</h2>
+    <table>
+      <tr><th>Rule</th><th>Detail</th></tr>
+      <tr><td><strong>No data → guidance</strong></td><td>Empty states explain the next step ("Upload Term 1 CSVs to begin") instead of blank screens</td></tr>
+      <tr><td><strong>Evidence always visible</strong></td><td>Confidence badge + question IDs beside every finding; click → drill-down</td></tr>
+      <tr><td><strong>Fuzzy → explicit</strong></td><td>Drill-down offers "Exact match" and "Similar" views so teachers see how a concept was matched</td></tr>
+      <tr><td><strong>Approval gate</strong></td><td>Interventions are drafts until the teacher approves them</td></tr>
+      <tr><td><strong>Print/export</strong></td><td>Every view exports a clean report for SMC/SMDC or parent meetings</td></tr>
+    </table>
+    <div class="callout ok"><strong>Result:</strong> a teacher trusts the tool because they can always see <em>why</em> it says something — and can always overrule it.</div>
+  </section>
+
+</div>
+<div class="navbar">
+  <button class="nav-btn" id="prevBtn">← <span>Prev</span></button>
+  <button class="menu-btn" id="menuBtn">☰ Contents</button>
+  <span class="counter" id="counter">1 / 6</span>
+  <button class="nav-btn" id="nextBtn"><span>Next</span> →</button>
+</div>
+<div class="menu" id="menu">
+  <button class="close" id="closeBtn">✕ Close</button>
+  <h3>05 · Algorithms &amp; Dashboard</h3>
+  <div id="menuLinks"></div>
+</div>
+<script src="shared/deck.js"></script>
+</body>
+</html>

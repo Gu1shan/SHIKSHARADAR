@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — Innovation &amp; Product</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+  <span class="t-title" id="tTitle">Innovation &amp; Product</span>
+</div>
+<div class="sidebar-backdrop" id="backdrop"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="logo">Shiksha Radar</div>
+    <div class="tagline">Find the learning gap before it becomes a learning failure.</div>
+  </div>
+  <nav>
+    <div class="nav-group">Overview</div>
+    <a href="index.html"><span class="dot"></span>Project Guide</a>
+    <div class="nav-group">Research &amp; Design</div>
+    <a href="problem.html"><span class="dot"></span>Problem &amp; Research</a>
+    <a href="innovation.html"><span class="dot"></span>Innovation &amp; Product</a>
+    <a href="architecture.html"><span class="dot"></span>Architecture &amp; Stack</a>
+    <a href="ai.html"><span class="dot"></span>AI &amp; Trust</a>
+    <div class="nav-group">Core Systems</div>
+    <a href="algorithms.html"><span class="dot"></span>Algorithms &amp; Dashboard</a>
+    <a href="data.html"><span class="dot"></span>Data, Privacy &amp; RAI</a>
+    <a href="testing.html"><span class="dot"></span>Testing, Deployment &amp; Scale</a>
+    <div class="nav-group">Delivery</div>
+    <a href="sih.html"><span class="dot"></span>SIH Evaluation &amp; Demo</a>
+    <a href="roadmap.html"><span class="dot"></span>Roadmap &amp; Execution</a>
+    <a href="sources.html"><span class="dot"></span>Sources &amp; References</a>
+  </nav>
+  <div class="foot">Smart India Hackathon · Prepared August 2026</div>
+</aside>
+
+<main class="main">
+  <div class="kicker">Part 02 · Innovation &amp; Product</div>
+  <h1>Mistake Fingerprinting</h1>
+  <p class="lead">Every student develops a pattern of errors across assessments. Shiksha Radar fingerprints that pattern — by concept and by error type — over time.</p>
+
+  <div class="grid g2">
+    <div class="card reveal"><h4>Traditional view</h4>
+      <pre>"Student scored 60% on Fractions"</pre>
+    </div>
+    <div class="card reveal"><h4>Shiksha Radar view</h4>
+      <pre>"Fractions → 7 errors across 3 assessments (84% confidence)
+ ├─ Denominator handling: 5 (recurring, ↑ trend)
+ ├─ Simplification: 1 (isolated)
+ └─ Addition: 1 (careless)
+ → Equivalent-fractions review + 5 targeted problems"</pre>
+    </div>
+  </div>
+
+  <h2>Not a dashboard, not a chatbot, not a predictor</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h4>It is NOT</h4>
+      <ul>
+        <li>A marks dashboard or attendance tracker</li>
+        <li>A generic AI tutor or chatbot</li>
+        <li>A "who will fail" prediction engine</li>
+        <li>A replacement for the teacher</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>It IS</h4>
+      <ul>
+        <li><strong>Concept-granular</strong> — which concept, which error type</li>
+        <li><strong>Longitudinal</strong> — patterns across assessments</li>
+        <li><strong>Evidence-cited</strong> — every claim shows counts + confidence</li>
+        <li><strong>Decision-supporting</strong> — the teacher stays in charge</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout ok"><strong>Core positioning:</strong> it reports <em>"which concepts show repeated difficulty, the evidence, and what might help"</em> — never "this child will fail."</div>
+
+  <h2>The end-to-end loop</h2>
+  <pre>Student assessments
+        ↓
+Answers + scores + assessment history
+        ↓
+Mistake analysis → Concept mapping → Repeated error detection
+        ↓
+Learning-pattern analysis → Student learning profile
+        ↓
+Teacher dashboard → Evidence-based intervention recommendation
+        ↓
+Targeted practice → Reassessment → Measure improvement</pre>
+  <div class="callout ok"><strong>The feedback loop is the product:</strong> Detect → Intervene → Reassess → Compare → "Gap closed" or "Persisted". Interventions only become active after <strong>teacher approval</strong>.</div>
+
+  <h2>User personas — designed around real workflows</h2>
+  <div class="grid g2">
+    <div class="card reveal"><h4>👩‍🏫 Priya — Grade 5 Teacher</h4><p>Govt school, 40 students, multi-grade. Pain: no time to analyze papers, doesn't know which concept to reteach.</p><p class="muted">Value: upload CSV → 30 sec → "Fractions: 12/40 struggling with denominators" → ready-to-print practice sheets.</p></div>
+    <div class="card reveal"><h4>🧑‍💼 Rajesh — Block Resource Person</h4><p>Supports 50 schools. Pain: needs systemic gaps for training planning.</p><p class="muted">Value: aggregate view — "denominator errors high in 35/50 schools → district workshop."</p></div>
+    <div class="card reveal"><h4>👧 Anita — Student (indirect)</h4><p>Grade 5. Pain: generic "do more practice" homework.</p><p class="muted">Value: targeted 5-question worksheet on her specific gap; sees progress next test.</p></div>
+    <div class="card reveal"><h4>🏫 Principal / Admin</h4><p>Reports to district on learning outcomes.</p><p class="muted">Value: auto-generated "Learning Gap Report" with evidence for SMC/SMDC meetings.</p></div>
+  </div>
+
+  <div class="callout"><strong>Principle:</strong> the system supports teachers, never replaces them. Every feature maps to a persona's real decision.</div>
+</main>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

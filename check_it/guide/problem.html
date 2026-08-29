@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — Problem &amp; Research</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+  <span class="t-title" id="tTitle">Problem &amp; Research</span>
+</div>
+<div class="sidebar-backdrop" id="backdrop"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="logo">Shiksha Radar</div>
+    <div class="tagline">Find the learning gap before it becomes a learning failure.</div>
+  </div>
+  <nav>
+    <div class="nav-group">Overview</div>
+    <a href="index.html"><span class="dot"></span>Project Guide</a>
+    <div class="nav-group">Research &amp; Design</div>
+    <a href="problem.html"><span class="dot"></span>Problem &amp; Research</a>
+    <a href="innovation.html"><span class="dot"></span>Innovation &amp; Product</a>
+    <a href="architecture.html"><span class="dot"></span>Architecture &amp; Stack</a>
+    <a href="ai.html"><span class="dot"></span>AI &amp; Trust</a>
+    <div class="nav-group">Core Systems</div>
+    <a href="algorithms.html"><span class="dot"></span>Algorithms &amp; Dashboard</a>
+    <a href="data.html"><span class="dot"></span>Data, Privacy &amp; RAI</a>
+    <a href="testing.html"><span class="dot"></span>Testing, Deployment &amp; Scale</a>
+    <div class="nav-group">Delivery</div>
+    <a href="sih.html"><span class="dot"></span>SIH Evaluation &amp; Demo</a>
+    <a href="roadmap.html"><span class="dot"></span>Roadmap &amp; Execution</a>
+    <a href="sources.html"><span class="dot"></span>Sources &amp; References</a>
+  </nav>
+  <div class="foot">Smart India Hackathon · Prepared August 2026</div>
+</aside>
+
+<main class="main">
+  <div class="kicker">Part 01 · The Problem</div>
+  <h1>India's learning crisis is real and quantified</h1>
+  <p class="lead">Before building any solution, we verified the problem from official sources. The evidence is unambiguous — and it points to a specific, solvable gap.</p>
+
+  <div class="grid g4">
+    <div class="card kpi reveal"><div class="num">52 cr</div><div class="label">children age 3–23; 17 cr outside formal education (NIPUN Bharat)</div></div>
+    <div class="card kpi reveal"><div class="num">&gt;50%</div><div class="label">Grade 5 children can't read Grade 2 text (ASER 2024)</div></div>
+    <div class="card kpi reveal"><div class="num">~85 lakh</div><div class="label">annual student dropouts (NDEAR/NCERT)</div></div>
+    <div class="card kpi reveal"><div class="num">1B+</div><div class="label">assessments scanned by Saral — marks, not concepts</div></div>
+  </div>
+
+  <div class="callout ok"><strong>Verified fact:</strong> NIPUN Bharat (MoE, 2021) mandates "meaningful assessments" and "consistent tracking of learning levels" to achieve foundational literacy &amp; numeracy (FLN) by Grade 3 by 2026–27 — yet current systems capture enrollment, infrastructure, and aggregate scores, not concept-level error patterns.</div>
+
+  <h2>Why marks alone are insufficient</h2>
+  <p>Two students can score the same 60% with completely different needs:</p>
+  <pre>Student A: 60% overall        Student B: 60% overall
+  Fractions → 8 errors            Fractions → 1 error
+    (denominator 5)                Algebra   → 5 errors (sign 3)
+  Algebra   → 1 error              Geometry  → 4 errors
+  Geometry  → 0 errors             (area/perimeter confusion)</pre>
+  <div class="grid g2">
+    <div class="card"><h4>What the teacher needs</h4><p>"Student A needs fraction-denominator remediation. Student B needs algebra sign rules and geometry clarification."</p></div>
+    <div class="card"><h4>What dashboards show</h4><p>"Both 60%. Both need help." — the missing piece is <em>concept-level</em> information.</p></div>
+  </div>
+
+  <h2>The Indian education ecosystem — verified from official sources</h2>
+  <p>We mapped the systems that already exist. Each one does something important — and each one leaves the same piece missing.</p>
+  <table>
+    <tr><th>System</th><th>What it does</th><th>Strength</th><th>Missing piece</th></tr>
+    <tr><td><strong>UDISE+</strong></td><td>School census</td><td>14.67 lakh schools · 24.72 cr students · 1.02 cr teachers</td><td>No assessment/error data</td></tr>
+    <tr><td><strong>DIKSHA</strong></td><td>Content + quizzes</td><td>18 languages, question banks, NDEAR building blocks</td><td>Not diagnostic; scores only</td></tr>
+    <tr><td><strong>Saral</strong></td><td>OMR answer-sheet scanning</td><td>1B+ records scanned; 27M+ students</td><td>Marks capture, no pattern analysis</td></tr>
+    <tr><td><strong>VSK (Gujarat)</strong></td><td>Governance dashboard</td><td>PM Award 2021; 1.15 cr students; World Bank good practice</td><td>Admin view, not teacher-facing</td></tr>
+    <tr><td><strong>NDEAR</strong></td><td>Architecture blueprint</td><td>Privacy-by-design, open building blocks</td><td>Framework, not an application</td></tr>
+  </table>
+
+  <h2>The gap Shiksha Radar fills</h2>
+  <table>
+    <tr><th>Capability</th><th>Govt systems</th><th>Khan/Byju's/Mindspark</th><th>ASSISTments/DreamBox</th><th>Shiksha Radar</th></tr>
+    <tr><td>Marks dashboard</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td></tr>
+    <tr><td>Concept-level analysis</td><td class="center">✗</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td></tr>
+    <tr><td>Mistake fingerprinting</td><td class="center">✗</td><td class="center">✗</td><td class="center">Partial</td><td class="center"><strong>✓ core</strong></td></tr>
+    <tr><td>Recurring error detection</td><td class="center">✗</td><td class="center">Partial</td><td class="center">✓</td><td class="center"><strong>✓ core</strong></td></tr>
+    <tr><td>Evidence-based intervention</td><td class="center">✗</td><td class="center">✓</td><td class="center">✓</td><td class="center"><strong>✓ core</strong></td></tr>
+    <tr><td>Closed teacher feedback loop</td><td class="center">✗</td><td class="center">✗</td><td class="center">✓</td><td class="center"><strong>✓ core</strong></td></tr>
+    <tr><td>Explainable AI + privacy-first</td><td class="center">✗</td><td class="center">✗</td><td class="center">Partial</td><td class="center"><strong>✓ by design</strong></td></tr>
+  </table>
+
+  <div class="callout"><strong>Key differentiator:</strong> longitudinal, concept-granular, error-type-specific pattern detection with <strong>evidence trails + confidence scores + a detect→intervene→reassess loop</strong> — not offered by any existing Indian platform.</div>
+
+  <div class="callout purple"><strong>Research note:</strong> this section intentionally uses only official/sourced claims. Where a number could not be verified, it is either omitted or explicitly marked in <a href="sources.html">Sources &amp; References</a>.</div>
+</main>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — Data, Privacy &amp; Responsible AI</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+  <span class="t-title" id="tTitle">Data, Privacy &amp; RAI</span>
+</div>
+<div class="sidebar-backdrop" id="backdrop"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="logo">Shiksha Radar</div>
+    <div class="tagline">Find the learning gap before it becomes a learning failure.</div>
+  </div>
+  <nav>
+    <div class="nav-group">Overview</div>
+    <a href="index.html"><span class="dot"></span>Project Guide</a>
+    <div class="nav-group">Research &amp; Design</div>
+    <a href="problem.html"><span class="dot"></span>Problem &amp; Research</a>
+    <a href="innovation.html"><span class="dot"></span>Innovation &amp; Product</a>
+    <a href="architecture.html"><span class="dot"></span>Architecture &amp; Stack</a>
+    <a href="ai.html"><span class="dot"></span>AI &amp; Trust</a>
+    <div class="nav-group">Core Systems</div>
+    <a href="algorithms.html"><span class="dot"></span>Algorithms &amp; Dashboard</a>
+    <a href="data.html"><span class="dot"></span>Data, Privacy &amp; RAI</a>
+    <a href="testing.html"><span class="dot"></span>Testing, Deployment &amp; Scale</a>
+    <div class="nav-group">Delivery</div>
+    <a href="sih.html"><span class="dot"></span>SIH Evaluation &amp; Demo</a>
+    <a href="roadmap.html"><span class="dot"></span>Roadmap &amp; Execution</a>
+    <a href="sources.html"><span class="dot"></span>Sources &amp; References</a>
+  </nav>
+  <div class="foot">Smart India Hackathon · Prepared August 2026</div>
+</aside>
+
+<main class="main">
+  <div class="kicker">Part 06 · Data &amp; Governance</div>
+  <h1>Real data, synthetic data, and the DPDP Act — privacy by design</h1>
+  <p class="lead">Shiksha Radar handles children's data. That is not an afterthought — it shapes the architecture, the data model, and every AI decision.</p>
+
+  <h2>The data problem — and the synthetic-data solution</h2>
+  <div class="grid g2">
+    <div class="card reveal">
+      <h4>Real-world data reality</h4>
+      <ul>
+        <li>No open, structured answer-level datasets exist for Indian schools</li>
+        <li>Existing systems (Saral) hold marks, not error patterns</li>
+        <li>Raw student data is protected — we must not use it to train</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h4>Our approach</h4>
+      <ul>
+        <li><strong>Synthetic data generator</strong> reproducing classroom archetypes</li>
+        <li>Six archetypes: Strong · Gaps-small · Gaps-large · Recurring-error · Careless-inconsistent · Needs-support</li>
+        <li>4 CSV files (students, assessments, answers, questions) with planted, known error patterns</li>
+        <li>Lets us <em>measure</em> detection accuracy because ground truth is known</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout"><strong>Honest framing:</strong> synthetic data is for development and demo. Real usage follows anonymized, consent-based data under DPDP; we say so rather than claim real data we don't have.</div>
+
+  <h2>Database evolution — CSV → SQLite → PostgreSQL</h2>
+  <pre>students (student_id, grade, section, created_at)
+assessments (assessment_id, school_id, name, date, concept_tags[])
+questions (question_id, concept_id, difficulty, topic, error_map)
+answers (answer_id, assessment_id, student_id, question_id, response,
+         is_correct, error_type, created_at)
+concepts (concept_id, name, parent_concept_id)
+error_types (error_type_id, code, description, category)
+
+→ View: v_student_concept_errors (rolled-up stats + confidence)</pre>
+  <div class="grid g2">
+    <div class="card"><h4>MVP (Weeks 1–4)</h4><p>CSV files + Pandas in memory. No DB layer.</p></div>
+    <div class="card"><h4>SIH (Weeks 5–8)</h4><p>SQLite with the schema above; indexes on <code>(student_id, concept_id)</code>.</p></div>
+  </div>
+
+  <h2>DPDP Act 2023 compliance — built in, not bolted on</h2>
+  <table>
+    <tr><th>DPDP Principle</th><th>Shiksha Radar implementation</th></tr>
+    <tr><td><strong>§4 Lawful purpose</strong></td><td>Analytics for education; purpose documented &amp; limited</td></tr>
+    <tr><td><strong>§6 Notice &amp; consent</strong></td><td>School-level consent flow + per-data-use notice</td></tr>
+    <tr><td><strong>§8 Purpose limitation</strong></td><td>Data used only for gap analysis; never sold or reused</td></tr>
+    <tr><td><strong>§9 Data minimisation</strong></td><td>Only answers, scores, timestamps — no address, income, photo</td></tr>
+    <tr><td><strong>§10 Storage limitation</strong></td><td>Retention policy; anonymized at rest for research</td></tr>
+    <tr><td><strong>§17 Safeguards</strong></td><td>Encryption, access control, breach process, incident plan</td></tr>
+    <tr><td><strong>§24 Deletion rights</strong></td><td>Students/schools can request deletion; feature built in</td></tr>
+  </table>
+  <p class="small">Flag: DPDP rules for schools/consent continue to be clarified — keep this section current at SIH time.</p>
+
+  <h2>Child-safety safeguards</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h4>Technical safeguards</h4>
+      <ul>
+        <li><strong>Pseudonymization:</strong> Student_001, never real names in outputs</li>
+        <li><strong>PII never sent to LLM</strong> — only structured, pseudonymized evidence</li>
+        <li><strong>No real names on dashboards</strong> — pseudonyms + teacher-controlled unlock</li>
+        <li><strong>Deterministic core:</strong> core analytics works fully offline without any LLM</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Language &amp; ethics safeguards</h4>
+      <ul>
+        <li>Approved vocabulary: "possible learning gap", "may benefit from additional support"</li>
+        <li>Never "weak", "bad", "failing", "at risk"</li>
+        <li>Findings shown as confidence-scored hypotheses, reviewable</li>
+        <li>No ethnicity / income / locale features in detection</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout danger"><strong>Non-negotiable:</strong> this is a decision-support tool for teachers — it never labels, ranks, or predicts a child's future.</div>
+</main>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

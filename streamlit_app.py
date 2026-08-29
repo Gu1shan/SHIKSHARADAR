@@ -86,7 +86,21 @@ def main():
         )
         
         if uploaded_files:
-            st.success(f"✅ {len(uploaded_files)} file(s) uploaded")
+            process_uploaded_files(uploaded_files)
+        
+        st.divider()
+        
+        # Database persistence
+        st.subheader("💾 Database")
+        col_db1, col_db2 = st.columns(2)
+        with col_db1:
+            if st.button("Save to DB", use_container_width=True,
+                         help="Persist current data, profiles and gaps to SQLite"):
+                save_to_database()
+        with col_db2:
+            if st.button("Load from DB", use_container_width=True,
+                         help="Load previously saved data from SQLite"):
+                load_from_database()
         
         st.divider()
         
@@ -101,7 +115,7 @@ def main():
                 st.metric("Assessments", responses["assessment_id"].nunique())
         
         st.divider()
-        st.caption("Shiksha Radar v0.1.0")
+        st.caption("Shiksha Radar v0.2.0")
         st.caption("Privacy-first • Deterministic core • Evidence-based")
 
     # Main content area
@@ -169,13 +183,74 @@ def load_demo_data():
         st.session_state.data_loaded = True
 
 
+def process_uploaded_files(uploaded_files):
+    """Process uploaded CSV files and load into session state."""
+    from app.data.loader import (
+        load_students, load_questions, load_concept_map, load_responses
+    )
+    from app.analytics.profiler import build_concept_profiles, detect_learning_gaps
+    import pandas as pd
+    import io
+    
+    with st.spinner("Processing uploaded files..."):
+        # Read all uploaded files
+        dataframes = {}
+        for f in uploaded_files:
+            df = pd.read_csv(f)
+            # Identify file type by columns
+            cols = set(df.columns)
+            if "student_id" in cols and "grade" in cols and "section" in cols:
+                dataframes["students"] = df
+            elif "question_id" in cols and "text" in cols and "concept" in cols:
+                dataframes["questions"] = df
+            elif "question_id" in cols and "concept" in cols and "sub_concept" in cols and len(cols) == 3:
+                dataframes["concept_map"] = df
+            elif "response_id" in cols and "student_id" in cols and "assessment_id" in cols:
+                dataframes["responses"] = df
+        
+        # Validate we have required files
+        required = ["students", "questions", "responses"]
+        missing = [r for r in required if r not in dataframes]
+        if missing:
+            st.error(f"Missing required files: {', '.join(missing)}. Please upload students.csv, questions.csv, and responses.csv at minimum.")
+            return
+        
+        # Load and validate
+        students = load_students(io.StringIO(dataframes["students"].to_csv(index=False)))
+        questions = load_questions(io.StringIO(dataframes["questions"].to_csv(index=False)))
+        responses = load_responses(io.StringIO(dataframes["responses"].to_csv(index=False)))
+        concept_map = dataframes.get("concept_map")
+        if concept_map is not None:
+            concept_map = load_concept_map(io.StringIO(concept_map.to_csv(index=False)))
+        else:
+            # Build from questions
+            concept_map = questions[["question_id", "concept", "sub_concept"]].drop_duplicates()
+        
+        # Build profiles and detect gaps
+        profiles = build_concept_profiles(responses, questions)
+        gaps = detect_learning_gaps(profiles)
+        
+        # Store in session state
+        st.session_state.students = students
+        st.session_state.questions = questions
+        st.session_state.concept_map = concept_map
+        st.session_state.responses = responses
+        st.session_state.profiles = profiles
+        st.session_state.gaps = gaps
+        st.session_state.data_loaded = True
+        
+        st.success(f"✅ Loaded: {len(students)} students, {len(questions)} questions, {len(responses)} responses")
+        st.rerun()
+
+
 def render_dashboard():
     """Render the main dashboard with tabs."""
-    tab1, tab2, tab3, tab4 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "📈 Class Overview", 
         "🔥 Student × Concept Heatmap", 
         "👤 Student Profile", 
-        "📋 Class Insights"
+        "📋 Class Insights",
+        "🛠 Interventions"
     ])
     
     with tab1:
@@ -189,6 +264,9 @@ def render_dashboard():
     
     with tab4:
         render_class_insights_tab()
+
+    with tab5:
+        render_interventions_tab()
 
 
 def render_overview_tab():
@@ -437,6 +515,17 @@ def render_student_profile_tab():
                     st.markdown("**Error Breakdown:**")
                     for err_type, count in sorted(profile.error_breakdown.items(), key=lambda x: -x[1]):
                         st.write(f"  • {err_type}: {count}")
+                
+                # AI explanation
+                explain_key = f"explain_{gap.student_id}_{gap.concept}"
+                if st.button("🤖 Explain this gap (AI)", key=explain_key):
+                    with st.spinner("Generating explanation..."):
+                        from app.llm.explainer import explain_gap
+                        exp = explain_gap(gap, profile)
+                    if exp.warnings:
+                        st.warning("Safety checks: " + "; ".join(exp.warnings))
+                    st.markdown(exp.text)
+                    st.caption(f"Provider: {exp.provider} • Evidence-based • Teacher review recommended")
     
     else:
         st.success("🎉 No learning gaps detected for this student!")
@@ -553,13 +642,187 @@ def render_class_insights_tab():
     
     st.divider()
     
-    # Intervention tracking (placeholder)
+    # Intervention tracking
     st.subheader("📝 Intervention Tracking")
-    st.info("Intervention tracking will be available after generating recommendations.")
+    render_intervention_tracking_summary()
+
+
+def render_interventions_tab():
+    """Interventions tab - generate, approve, download, and track outcomes."""
+    from app.interventions.templates import get_intervention
+    from app.interventions.worksheet import generate_worksheet_pdf
+    from app.interventions.reassess import build_reassessment_plan, record_outcome, OUTCOME_LABELS
+    import os
     
-    if st.button("Generate Interventions for Gaps"):
-        st.session_state.show_interventions = True
+    gaps = st.session_state.gaps
+    profiles = st.session_state.profiles
+    
+    st.subheader("🛠 Intervention Engine")
+    st.caption("Detect → Intervene → Reassess → Close the loop. Teacher approval required before assigning.")
+    
+    if not gaps:
+        st.success("No active learning gaps — nothing to intervene on.")
+        return
+    
+    students_with_gaps = sorted(set(g.student_id for g in gaps))
+    selected = st.selectbox(
+        "Select a detected gap to build an intervention",
+        options=[f"{g.student_id} — {g.concept} ({g.dominant_error}, {g.confidence:.0%})"
+                 for g in sorted(gaps, key=lambda x: -x.confidence)],
+        key="intervention_gap_select",
+    )
+    
+    if not selected:
+        return
+    idx = [f"{g.student_id} — {g.concept} ({g.dominant_error}, {g.confidence:.0%})"
+           for g in sorted(gaps, key=lambda x: -x.confidence)].index(selected)
+    gap = sorted(gaps, key=lambda x: -x.confidence)[idx]
+    
+    # Build suggestion (cached per gap in session)
+    iv_key = f"intervention_{gap.student_id}_{gap.concept}"
+    if iv_key not in st.session_state:
+        st.session_state[iv_key] = get_intervention(gap)
+    intervention = st.session_state[iv_key]
+    
+    col1, col2 = st.columns([2, 1])
+    
+    with col1:
+        st.markdown(f"**Suggested steps for {gap.student_id} — {gap.concept}:**")
+        for i, step in enumerate(intervention["steps"], 1):
+            st.write(f"{i}. {step}")
+        
+        st.markdown("**Practice questions:**")
+        for q in intervention["practice_questions"]:
+            st.write(f"• {q}")
+    
+    with col2:
+        approved_key = f"approved_{iv_key}"
+        if st.button("✅ Approve & Assign", key=f"approve_{iv_key}", type="primary"):
+            st.session_state[approved_key] = True
+            pdf_path = generate_worksheet_pdf(intervention)
+            st.session_state[f"pdf_{iv_key}"] = pdf_path
+            st.success(f"Approved! Worksheet generated.")
+        
+        if os.environ.get("GROQ_API_KEY") or os.environ.get("GEMINI_API_KEY"):
+            pass
+        else:
+            st.info("💡 Set GROQ_API_KEY or GEMINI_API_KEY in .env for AI explanations.")
+    
+    # After approval: worksheet download + reassessment plan
+    if st.session_state.get(f"approved_{iv_key}"):
+        st.divider()
+        pdf_path = st.session_state.get(f"pdf_{iv_key}")
+        if pdf_path and os.path.exists(pdf_path):
+            with open(pdf_path, "rb") as f:
+                st.download_button(
+                    "📄 Download PDF Worksheet", f,
+                    file_name=os.path.basename(pdf_path),
+                    mime="application/pdf"
+                )
+        
+        reassess = build_reassessment_plan(intervention, st.session_state.questions)
+        st.markdown(f"""
+        **Reassessment plan:** `{reassess['reassessment_id']}` —
+        {reassess['num_questions']} questions on **{reassess['concept']}**,
+        suggested by **{reassess['suggested_date']}**.
+        """)
+        
+        st.subheader("🔁 Reassessment Outcome")
+        col_a, col_b = st.columns(2)
+        before_rate = col_a.number_input(
+            "Error rate BEFORE intervention (%)",
+            min_value=0.0, max_value=100.0, value=60.0, step=5.0,
+            key=f"before_{iv_key}")
+        after_rate = col_b.number_input(
+            "Error rate AFTER reassessment (%)",
+            min_value=0.0, max_value=100.0, value=10.0, step=5.0,
+            key=f"after_{iv_key}")
+        
+        if st.button("Evaluate Outcome", key=f"eval_{iv_key}"):
+            outcome = record_outcome(before_rate / 100, after_rate / 100,
+                                     intervention["intervention_id"])
+            label = OUTCOME_LABELS[outcome["outcome"]]
+            if outcome["outcome"] == "gap_closed":
+                st.success(f"{label} — loop closed! ({before_rate:.0f}% → {after_rate:.0f}%)")
+            else:
+                st.warning(f"{label} ({before_rate:.0f}% → {after_rate:.0f}%)")
+
+
+def render_intervention_tracking_summary():
+    """Summary of interventions recorded this session."""
+    interventions = [
+        v for k, v in st.session_state.items()
+        if k.startswith("intervention_") and isinstance(v, dict)
+    ]
+    approved = sum(1 for k in st.session_state if k.startswith("approved_intervention_"))
+    
+    col1, col2 = st.columns(2)
+    col1.metric("Suggestions Generated", len(interventions))
+    col2.metric("Teacher-Approved", approved)
+    
+    if interventions:
+        rows = [{
+            "Student": iv["student_id"],
+            "Concept": iv["concept"],
+            "Dominant Error": iv["dominant_error"],
+            "ID": iv["intervention_id"],
+            "Status": "✅ Approved" if st.session_state.get(f"approved_intervention_{iv['student_id']}_{iv['concept']}") else "Pending review",
+        } for iv in interventions]
+        st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+    else:
+        st.info("Generate interventions from the 🛠 Interventions tab.")
+
+
+# ---------------------------------------------------------------------------
+# Database persistence helpers
+# ---------------------------------------------------------------------------
+
+def save_to_database():
+    """Persist current session data to SQLite."""
+    from app.db.repository import Repository
+    
+    try:
+        repo = Repository()
+        n_students = repo.save_students(st.session_state.students)
+        n_questions = repo.save_questions(st.session_state.questions)
+        n_responses = repo.save_responses(st.session_state.responses)
+        repo.save_profiles(st.session_state.profiles)
+        repo.save_gaps(st.session_state.gaps)
+        repo.close()
+        st.success(f"Saved to database: {n_students} students, {n_questions} questions, "
+                   f"{n_responses} responses appended")
+    except Exception as e:
+        st.error(f"Database save failed: {e}")
+
+
+def load_from_database():
+    """Load data from SQLite into session state."""
+    from app.db.repository import Repository
+    from app.analytics.profiler import build_concept_profiles, detect_learning_gaps
+    
+    try:
+        repo = Repository()
+        students, questions, concept_map, responses = repo.load_all_data()
+        repo.close()
+        
+        if responses.empty:
+            st.warning("Database is empty — load demo data or upload files first.")
+            return
+        
+        profiles = build_concept_profiles(responses, questions)
+        gaps = detect_learning_gaps(profiles)
+        
+        st.session_state.students = students
+        st.session_state.questions = questions
+        st.session_state.concept_map = concept_map
+        st.session_state.responses = responses
+        st.session_state.profiles = profiles
+        st.session_state.gaps = gaps
+        st.session_state.data_loaded = True
+        st.success(f"Loaded from database: {len(students)} students, {len(responses)} responses")
         st.rerun()
+    except Exception as e:
+        st.error(f"Database load failed: {e}")
 
 
 if __name__ == "__main__":

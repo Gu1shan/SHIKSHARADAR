@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — 06 Data, Privacy &amp; Responsible AI</title>
+<link rel="stylesheet" href="shared/deck.css">
+</head>
+<body>
+<a class="home-link" href="index.html">← Hub</a>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <section class="slide title-slide">
+    <div class="kicker">Shiksha Radar · Presentation 06</div>
+    <div class="logo">Data, Privacy &amp; Responsible AI</div>
+    <div class="tag">"Find the learning gap before it becomes a learning failure."</div>
+    <p class="big">Real data, synthetic data, and the DPDP Act — privacy by design</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Data Reality</div>
+    <h2>The data problem — and the synthetic-data solution</h2>
+    <div class="grid g2 mt">
+      <div class="card">
+        <h4>Real-world data reality</h4>
+        <ul>
+          <li>No open, structured answer-level datasets exist for Indian schools</li>
+          <li>Existing systems (Saral) hold marks, not error patterns</li>
+          <li>Raw student data is protected — we must not use it to train</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Our approach</h4>
+        <ul>
+          <li><strong>Synthetic data generator</strong> reproducing classroom archetypes</li>
+          <li>Six archetypes: Strong · Gaps-small · Gaps-large · Recurring-error · Careless-inconsistent · Needs-support</li>
+          <li>4 CSV files (students, assessments, answers, questions) with planted, known error patterns</li>
+          <li>Lets us <em>measure</em> detection accuracy because ground truth is known</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout"><strong>Honest framing:</strong> synthetic data is for development and demo. Real usage follows anonymized, consent-based data under DPDP; we say so rather than claim real data we don't have.</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Data Model</div>
+    <h2>Database evolution — CSV → SQLite → PostgreSQL</h2>
+    <pre>students (student_id, grade, section, created_at)
+assessments (assessment_id, school_id, name, date, concept_tags[])
+questions (question_id, concept_id, difficulty, topic, error_map)
+answers (answer_id, assessment_id, student_id, question_id, response,
+         is_correct, error_type, created_at)
+concepts (concept_id, name, parent_concept_id)
+error_types (error_type_id, code, description, category)
+
+→ View: v_student_concept_errors (rolled-up stats + confidence)</pre>
+    <div class="grid g2 mt">
+      <div class="card"><h4>MVP (Weeks 1–4)</h4><p>CSV files + Pandas in memory. No DB layer.</p></div>
+      <div class="card"><h4>SIH (Weeks 5–8)</h4><p>SQLite with the schema above; indexes on <code>(student_id, concept_id)</code>.</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Privacy &amp; Compliance</div>
+    <h2>DPDP Act 2023 compliance — built in, not bolted on</h2>
+    <table>
+      <tr><th>DPDP Principle</th><th>Shiksha Radar implementation</th></tr>
+      <tr><td><strong>§4 Lawful purpose</strong></td><td>Analytics for education; purpose documented &amp; limited</td></tr>
+      <tr><td><strong>§6 Notice &amp; consent</strong></td><td>School-level consent flow + per-data-use notice</td></tr>
+      <tr><td><strong>§8 Purpose limitation</strong></td><td>Data used only for gap analysis; never sold or reused</td></tr>
+      <tr><td><strong>§9 Data minimisation</strong></td><td>Only answers, scores, timestamps — no address, income, photo</td></tr>
+      <tr><td><strong>§10 Storage limitation</strong></td><td>Retention policy; anonymized at rest for research</td></tr>
+      <tr><td><strong>§17 Safeguards</strong></td><td>Encryption, access control, breach process, incident plan</td></tr>
+      <tr><td><strong>§24 Deletion rights</strong></td><td>Students/schools can request deletion; feature built in</td></tr>
+    </table>
+    <p class="muted">Full analysis lives in the plan (Part 20); flag: DPDP rules for schools/consent continue to be clarified — keep this section current at SIH time.</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Responsible AI</div>
+    <h2>Child-safety safeguards</h2>
+    <div class="grid g2 mt">
+      <div class="card">
+        <h4>Technical safeguards</h4>
+        <ul>
+          <li><strong>Pseudonymization:</strong> Student_001, never real names in outputs</li>
+          <li><strong>PII never sent to LLM</strong> — only structured, pseudonymized evidence</li>
+          <li><strong>No real names on dashboards</strong> — pseudonyms + teacher-controlled unlock</li>
+          <li><strong>Deterministic core:</strong> core analytics works fully offline without any LLM</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Language &amp; ethics safeguards</h4>
+        <ul>
+          <li>Approved vocabulary: "possible learning gap", "may benefit from additional support"</li>
+          <li>Never "weak", "bad", "failing", "at risk"</li>
+          <li>Findings shown as confidence-scored hypotheses, reviewable</li>
+          <li>No ethnicity / income / locale features in detection</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout danger"><strong>Non-negotiable:</strong> this is a decision-support tool for teachers — it never labels, ranks, or predicts a child's future.</div>
+  </section>
+
+</div>
+<div class="navbar">
+  <button class="nav-btn" id="prevBtn">← <span>Prev</span></button>
+  <button class="menu-btn" id="menuBtn">☰ Contents</button>
+  <span class="counter" id="counter">1 / 5</span>
+  <button class="nav-btn" id="nextBtn"><span>Next</span> →</button>
+</div>
+<div class="menu" id="menu">
+  <button class="close" id="closeBtn">✕ Close</button>
+  <h3>06 · Data, Privacy &amp; Responsible AI</h3>
+  <div id="menuLinks"></div>
+</div>
+<script src="shared/deck.js"></script>
+</body>
+</html>

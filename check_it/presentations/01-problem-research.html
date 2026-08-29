@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiksha Radar — 01 Problem &amp; Research</title>
+<link rel="stylesheet" href="shared/deck.css">
+</head>
+<body>
+<a class="home-link" href="index.html">← Hub</a>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <section class="slide title-slide">
+    <div class="kicker">Shiksha Radar · Presentation 01</div>
+    <div class="logo">Problem &amp; Research</div>
+    <div class="tag">"Find the learning gap before it becomes a learning failure."</div>
+    <p class="big">The learning crisis, why marks alone fail, and the ecosystem gap</p>
+    <p class="meta">Evidence from official sources · NIPUN Bharat · ASER · UDISE+ · DIKSHA · Saral · VSK · NDEAR</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">The Problem</div>
+    <h2>India's learning crisis is real and quantified</h2>
+    <div class="grid g4 mt">
+      <div class="card kpi"><div class="num">52 cr</div><div class="label">children age 3–23; 17 cr outside formal education (NIPUN Bharat)</div></div>
+      <div class="card kpi"><div class="num">&gt;50%</div><div class="label">Grade 5 children can't read Grade 2 text (ASER 2024)</div></div>
+      <div class="card kpi"><div class="num">~85 lakh</div><div class="label">annual student dropouts (NDEAR/NCERT)</div></div>
+      <div class="card kpi"><div class="num">1B+</div><div class="label">assessments scanned by Saral — marks, not concepts</div></div>
+    </div>
+    <div class="callout"><strong>Verified fact:</strong> NIPUN Bharat mandates "meaningful assessments" and "consistent tracking of learning levels" by Grade 3 by 2026–27 — yet current systems capture enrollment, infrastructure, and aggregate scores, not concept-level error patterns.</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">The Problem</div>
+    <h2>Why marks alone are insufficient</h2>
+    <pre>Student A: 60% overall        Student B: 60% overall
+  Fractions → 8 errors            Fractions → 1 error
+    (denominator 5)                Algebra   → 5 errors (sign 3)
+  Algebra   → 1 error              Geometry  → 4 errors
+  Geometry  → 0 errors             (area/perimeter confusion)</pre>
+    <div class="grid g2 mt">
+      <div class="card"><h4>What the teacher needs</h4><p>"Student A needs fraction denominator remediation. Student B needs algebra sign rules + geometry clarification."</p></div>
+      <div class="card"><h4>What dashboards show</h4><p>"Both 60%. Both need help." — the missing piece is <strong>concept-level information</strong>.</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Research Findings</div>
+    <h2>The Indian education ecosystem — verified from official sources</h2>
+    <table>
+      <tr><th>System</th><th>What it does</th><th>Strength</th><th>Missing piece</th></tr>
+      <tr><td><strong>UDISE+</strong></td><td>School census</td><td>14.67 lakh schools · 24.72 cr students · 1.02 cr teachers</td><td>No assessment/error data</td></tr>
+      <tr><td><strong>DIKSHA</strong></td><td>Content + quizzes</td><td>18 languages, question banks, NDEAR blocks</td><td>Not diagnostic; scores only</td></tr>
+      <tr><td><strong>Saral</strong></td><td>OMR answer-sheet scanning</td><td>1B+ records scanned; 27M+ students</td><td>Marks capture, no pattern analysis</td></tr>
+      <tr><td><strong>VSK (Gujarat)</strong></td><td>Governance dashboard</td><td>PM Award 2021; 1.15 cr students; World Bank good practice</td><td>Admin view, not teacher-facing</td></tr>
+      <tr><td><strong>NDEAR</strong></td><td>Architecture blueprint</td><td>Privacy-by-design, open building blocks</td><td>Framework, not an application</td></tr>
+    </table>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Gap Analysis</div>
+    <h2>What exists — and the gap Shiksha Radar fills</h2>
+    <table>
+      <tr><th>Capability</th><th>Govt systems</th><th>Khan/Byju's/Mindspark</th><th>ASSISTments/DreamBox</th><th>Shiksha Radar</th></tr>
+      <tr><td>Marks dashboard</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td></tr>
+      <tr><td>Concept-level analysis</td><td class="center">✗</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td></tr>
+      <tr><td>Mistake fingerprinting</td><td class="center">✗</td><td class="center">✗</td><td class="center">Partial</td><td class="center"><strong>✓ core</strong></td></tr>
+      <tr><td>Recurring error detection</td><td class="center">✗</td><td class="center">Partial</td><td class="center">✓</td><td class="center"><strong>✓ core</strong></td></tr>
+      <tr><td>Evidence-based intervention</td><td class="center">✗</td><td class="center">✓</td><td class="center">✓</td><td class="center"><strong>✓ core</strong></td></tr>
+      <tr><td>Closed teacher feedback loop</td><td class="center">✗</td><td class="center">✗</td><td class="center">✓</td><td class="center"><strong>✓ core</strong></td></tr>
+      <tr><td>Explainable AI + privacy-first</td><td class="center">✗</td><td class="center">✗</td><td class="center">Partial</td><td class="center"><strong>✓ by design</strong></td></tr>
+    </table>
+    <div class="callout"><strong>Gap:</strong> no system converts raw answers into <strong>longitudinal, concept-level, error-pattern intelligence</strong> a classroom teacher can act on — with evidence, confidence, and a closed intervention → reassessment loop.</div>
+  </section>
+
+</div>
+<div class="navbar">
+  <button class="nav-btn" id="prevBtn">← <span>Prev</span></button>
+  <button class="menu-btn" id="menuBtn">☰ Contents</button>
+  <span class="counter" id="counter">1 / 5</span>
+  <button class="nav-btn" id="nextBtn"><span>Next</span> →</button>
+</div>
+<div class="menu" id="menu">
+  <button class="close" id="closeBtn">✕ Close</button>
+  <h3>01 · Problem &amp; Research</h3>
+  <div id="menuLinks"></div>
+</div>
+<script src="shared/deck.js"></script>
+</body>
+</html>
