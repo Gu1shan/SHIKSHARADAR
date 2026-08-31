@@ -7,12 +7,12 @@ name = "shiksha-radar"
 version = "0.1.0"
 description = "AI-powered learning gap detection platform"
 readme = "README.md"
-requires-python = ">=3.12,<3.13"
+requires-python = ">=3.12,<3.15"
 
 dependencies = [
-"pandas>=2.2,<3.0",
+"pandas>=2.2",
 "streamlit>=1.62",
-"numpy>=2.5,<2.6",
+"numpy>=2.5",
 "plotly>=6.0",
 "openpyxl>=3.1",
 "scikit-learn>=1.6",
